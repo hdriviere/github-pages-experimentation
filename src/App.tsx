@@ -80,6 +80,7 @@ const App: React.FC = () => {
                             value={i18n.language}
                             onChange={(e) => i18n.changeLanguage(e.target.value)}
                         >
+                            <option value="ru">Russian</option>
                             <option value="en">English</option>
                             <option value="fr">Français</option>
                             {/* Add more languages here */}

@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: "/my-pricing-spa/",
+  base: "/github-pages-experimentation/",
 })

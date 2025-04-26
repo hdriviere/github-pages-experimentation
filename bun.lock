@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "my-pricing-spa",
+      "name": "github-pages-experimentation",
       "dependencies": {
         "@tailwindcss/vite": "^4.1.4",
         "i18next": "^25.0.1",

@@ -2,6 +2,21 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
+    ru: {
+        translation: {
+            currency: "Валюта",
+            language: "Язык",
+            select_countries: "Выберите страны",
+            number_of_universities: "Количество университетов",
+            total_price: "Общая цена",
+            percentage_of_discount: "Процент скидки",
+            discounted_price: "Цена со скидкой",
+            selected: "выбрано",
+            bachelor: "Бакалавриат",
+            master: "Магистратура",
+            program_type: "Тип программы"
+        }
+    },
     en: {
         translation: {
             currency: "Currency",
