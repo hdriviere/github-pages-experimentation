@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useTranslation} from "react-i18next";
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "./i18n";
 
 type Country = {
@@ -15,13 +15,15 @@ type Currency = {
     flag: string;
 };
 
+type ProgramType = "bachelor" | "master";
+
 const COUNTRIES: Country[] = [
-    { key: "china", label: "China", flag: "🇨🇳" },
-    { key: "hongkong", label: "Hong Kong", flag: "🇭🇰" },
-    { key: "italy", label: "Italy", flag: "🇮🇹" },
-    { key: "uk", label: "United Kingdom", flag: "🇬🇧" },
-    { key: "usa", label: "United States of America", flag: "🇺🇸" },
-    { key: "korea", label: "South Korea", flag: "🇰🇷" }
+    { key: "cn", label: "China", flag: "🇨🇳" },
+    { key: "hk", label: "Hong Kong", flag: "🇭🇰" },
+    { key: "it", label: "Italy", flag: "🇮🇹" },
+    { key: "gb", label: "United Kingdom", flag: "🇬🇧" },
+    { key: "us", label: "United States of America", flag: "🇺🇸" },
+    { key: "kr", label: "South Korea", flag: "🇰🇷" }
 ];
 
 const CURRENCIES: Currency[] = [
@@ -31,8 +33,6 @@ const CURRENCIES: Currency[] = [
     { code: "GBP", symbol: "£", rate: 0.0015, flag: "🇬🇧" }
 ];
 
-type ProgramType = "bachelor" | "master";
-
 function calculatePrice(
     selectedCountries: Country[],
     universityCount: number,
@@ -40,17 +40,88 @@ function calculatePrice(
 ): number {
     const basePerCountry = programType === "master" ? 590_000 : 400_000;
     const perUniversity = programType === "master" ? 400_000 : 300_000;
-    return selectedCountries.length * basePerCountry +
-        universityCount * perUniversity;
+    return (
+        selectedCountries.length * basePerCountry +
+        universityCount * perUniversity
+    );
 }
+
+// --- Query Param Helpers ---
+
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        countries: params.get("countries")?.split(",").filter(Boolean) || [],
+        universities: Number(params.get("universities")) || 1,
+        program: params.get("program") === "master" ? "master" : "bachelor",
+        currency: params.get("currency") || "KZT",
+        discount: Number(params.get("discount")) || 1
+    };
+}
+
+function setQueryParams({
+                            countries,
+                            universities,
+                            program,
+                            currency,
+                            discount
+                        }: {
+    countries: string[];
+    universities: number;
+    program: string;
+    currency: string;
+    discount: number;
+}) {
+    const params = new URLSearchParams();
+    if (countries.length) params.set("countries", countries.join(","));
+    params.set("universities", String(universities));
+    params.set("program", program);
+    params.set("currency", currency);
+    params.set("discount", String(discount));
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+}
+
+// --- Main App ---
 
 const App: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
-    const [universityCount, setUniversityCount] = useState<number>(1);
-    const [discountPercentage, setDiscountPercentage] = useState<number>(1);
-    const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
-    const [programType, setProgramType] = useState<ProgramType>("bachelor");
+
+    // Initialize state from URL
+    const initialParams = getQueryParams();
+
+    const [selectedCountries, setSelectedCountries] = useState<Country[]>(
+        COUNTRIES.filter((c) => initialParams.countries.includes(c.key))
+    );
+    const [universityCount, setUniversityCount] = useState<number>(
+        initialParams.universities
+    );
+    const [discountPercentage, setDiscountPercentage] = useState<number>(
+        initialParams.discount
+    );
+    const [currency, setCurrency] = useState<Currency>(
+        CURRENCIES.find((c) => c.code === initialParams.currency) || CURRENCIES[0]
+    );
+    const [programType, setProgramType] = useState<ProgramType>(
+        initialParams.program === "master" ? "master" : "bachelor"
+    );
+
+    // Sync state to URL
+    useEffect(() => {
+        setQueryParams({
+            countries: selectedCountries.map((c) => c.key),
+            universities: universityCount,
+            program: programType,
+            currency: currency.code,
+            discount: discountPercentage
+        });
+    }, [
+        selectedCountries,
+        universityCount,
+        programType,
+        currency,
+        discountPercentage
+    ]);
 
     const handleCountryChange = (country: Country) => {
         setSelectedCountries((prev) =>
@@ -62,9 +133,13 @@ const App: React.FC = () => {
         );
     };
 
-    const priceKZT = calculatePrice(selectedCountries, universityCount, programType);
+    const priceKZT = calculatePrice(
+        selectedCountries,
+        universityCount,
+        programType
+    );
     const price = priceKZT * currency.rate;
-    const discountedPrice = price - (price * discountPercentage / 100);
+    const discountedPrice = price - (price * discountPercentage) / 100;
 
     return (
         <div className="min-h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 to-blue-200">
@@ -94,7 +169,8 @@ const App: React.FC = () => {
                             value={currency.code}
                             onChange={(e) =>
                                 setCurrency(
-                                    CURRENCIES.find((c) => c.code === e.target.value) || CURRENCIES[0]
+                                    CURRENCIES.find((c) => c.code === e.target.value) ||
+                                    CURRENCIES[0]
                                 )
                             }
                         >
