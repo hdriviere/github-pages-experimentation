@@ -14,7 +14,10 @@ const resources = {
             selected: "выбрано",
             bachelor: "Бакалавриат",
             master: "Магистратура",
-            program_type: "Тип программы"
+            program_type: "Тип программы",
+            russian: "Русский",
+            english: "Английский",
+            french: "Французский"
         }
     },
     en: {
@@ -29,7 +32,10 @@ const resources = {
             selected: "selected",
             bachelor: "Bachelor",
             master: "Master",
-            program_type: "Program type"
+            program_type: "Program type",
+            russian: "Russian",
+            english: "English",
+            french: "French"
         }
     },
     fr: {
@@ -44,7 +50,10 @@ const resources = {
             selected: "sélectionné(s)",
             bachelor: "Licence",
             master: "Master",
-            program_type: "Type de programme"
+            program_type: "Type de programme",
+            russian: "Russe",
+            english: "Anglais",
+            french: "Français"
         }
     }
     // Add more languages here
