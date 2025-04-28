@@ -51,7 +51,7 @@ function calculatePrice(
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
     return {
-        countries: params.get("countries")?.split(",").filter(Boolean) || [],
+        countries: params.get("countries")?.split("-").filter(Boolean) || [],
         universities: Number(params.get("universities")) || 1,
         program: params.get("program") === "master" ? "master" : "bachelor",
         currency: params.get("currency") || "KZT",
@@ -73,7 +73,7 @@ function setQueryParams({
     discount: number;
 }) {
     const params = new URLSearchParams();
-    if (countries.length) params.set("countries", countries.join(","));
+    if (countries.length) params.set("countries", countries.join("-"));
     params.set("universities", String(universities));
     params.set("program", program);
     params.set("currency", currency);
