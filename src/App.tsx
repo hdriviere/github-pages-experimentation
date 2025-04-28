@@ -33,20 +33,86 @@ const CURRENCIES: Currency[] = [
     { code: "GBP", symbol: "£", rate: 0.0015, flag: "🇬🇧" }
 ];
 
-function calculatePrice(
-    selectedCountries: Country[],
-    universityCount: number,
-    programType: ProgramType
-): number {
-    const basePerCountry = programType === "master" ? 590_000 : 400_000;
-    const perUniversity = programType === "master" ? 400_000 : 300_000;
-    return (
-        selectedCountries.length * basePerCountry +
-        universityCount * perUniversity
-    );
-}
+// --- PRICING DATA ---
 
-// --- Query Param Helpers ---
+const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
+    cn: { bachelor: 400_000, master: 590_000 },
+    hk: { bachelor: 400_000, master: 590_000 },
+    it: { bachelor: 400_000, master: 590_000 },
+    gb: { bachelor: 400_000, master: 590_000 },
+    us: { bachelor: 400_000, master: 590_000 },
+    kr: { bachelor: 400_000, master: 590_000 },
+};
+
+const SPECIAL_BASE_PRICES: Record<
+    string,
+    { bachelor: number; master: number }
+> = {
+    "gb-us": { bachelor: 750_000, master: 1_000_000 },
+    "gb-us-*": { bachelor: 900_000, master: 1_200_000 },
+    "cn-hk": { bachelor: 700_000, master: 950_000 },
+    "cn-hk-it": { bachelor: 1_000_000, master: 1_400_000 },
+    // ...add more as needed
+};
+
+const PER_UNIVERSITY_PRICES: {
+    [key: string]: {
+        bachelor: { max: number; price: number }[];
+        master: { max: number; price: number }[];
+    };
+} = {
+    default: {
+        bachelor: [
+            { max: 3, price: 100_000 },
+            { max: 6, price: 90_000 },
+            { max: Infinity, price: 80_000 },
+        ],
+        master: [
+            { max: 3, price: 150_000 },
+            { max: 6, price: 130_000 },
+            { max: Infinity, price: 110_000 },
+        ],
+    },
+    "us-gb-*": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+    "cn-hk": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+    "us-gb": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+    // ...add more as needed
+};
+
+// --- URL SYNC HELPERS ---
 
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
@@ -55,7 +121,8 @@ function getQueryParams() {
         universities: Number(params.get("universities")) || 1,
         program: params.get("program") === "master" ? "master" : "bachelor",
         currency: params.get("currency") || "KZT",
-        discount: Number(params.get("discount")) || 1
+        discount: Number(params.get("discount")) || 0,
+        lang: params.get("lang") || "en",
     };
 }
 
@@ -64,13 +131,15 @@ function setQueryParams({
                             universities,
                             program,
                             currency,
-                            discount
+                            discount,
+                            lang,
                         }: {
     countries: string[];
     universities: number;
     program: string;
     currency: string;
     discount: number;
+    lang: string;
 }) {
     const params = new URLSearchParams();
     if (countries.length) params.set("countries", countries.join("-"));
@@ -78,50 +147,119 @@ function setQueryParams({
     params.set("program", program);
     params.set("currency", currency);
     params.set("discount", String(discount));
+    params.set("lang", lang);
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, "", newUrl);
 }
 
-// --- Main App ---
+// --- WILDCARD LOGIC ---
+
+function getWildcardComboKey(
+    selectedKeys: string[],
+    wildcardLength: number,
+    priceMap: Record<string, any>
+): string | null {
+    if (selectedKeys.length === wildcardLength) {
+        const sorted = [...selectedKeys].sort();
+        // All pairs in the selection
+        for (let i = 0; i < sorted.length; i++) {
+            for (let j = i + 1; j < sorted.length; j++) {
+                const pair = [sorted[i], sorted[j]].join("-");
+                const wildcardKey = `${pair}-*`;
+                if (priceMap[wildcardKey]) {
+                    return wildcardKey;
+                }
+            }
+        }
+    }
+    return null;
+}
+
+function getBasePrice(
+    selectedKeys: string[],
+    programType: ProgramType
+): { price: number; comboKey: string | null } {
+    const sorted = [...selectedKeys].sort();
+    const comboKey = sorted.join("-");
+    if (SPECIAL_BASE_PRICES[comboKey]) {
+        return { price: SPECIAL_BASE_PRICES[comboKey][programType], comboKey };
+    }
+    const wildcardKey = getWildcardComboKey(sorted, 3, SPECIAL_BASE_PRICES);
+    if (wildcardKey && SPECIAL_BASE_PRICES[wildcardKey]) {
+        return { price: SPECIAL_BASE_PRICES[wildcardKey][programType], comboKey: wildcardKey };
+    }
+    return {
+        price: sorted.reduce((sum, key) => sum + (BASE_PRICES[key]?.[programType] || 0), 0),
+        comboKey: null,
+    };
+}
+
+function getPerUniversityPrice(
+    selectedKeys: string[],
+    universityCount: number,
+    programType: ProgramType
+): { price: number; comboKey: string | null } {
+    const sorted = [...selectedKeys].sort();
+    const comboKey = sorted.join("-");
+    if (PER_UNIVERSITY_PRICES[comboKey]) {
+        const rule = PER_UNIVERSITY_PRICES[comboKey][programType].find((r) => universityCount <= r.max);
+        return { price: rule?.price || 0, comboKey };
+    }
+    const wildcardKey = getWildcardComboKey(sorted, 3, PER_UNIVERSITY_PRICES);
+    if (wildcardKey && PER_UNIVERSITY_PRICES[wildcardKey]) {
+        const rule = PER_UNIVERSITY_PRICES[wildcardKey][programType].find((r) => universityCount <= r.max);
+        return { price: rule?.price || 0, comboKey: wildcardKey };
+    }
+    const rule = PER_UNIVERSITY_PRICES["default"][programType].find((r) => universityCount <= r.max);
+    return { price: rule?.price || 0, comboKey: "default" };
+}
+
+// --- MAIN APP ---
 
 const App: React.FC = () => {
     const { t, i18n } = useTranslation();
 
-    // Initialize state from URL
+    // --- INITIAL STATE FROM URL ---
     const initialParams = getQueryParams();
 
     const [selectedCountries, setSelectedCountries] = useState<Country[]>(
         COUNTRIES.filter((c) => initialParams.countries.includes(c.key))
     );
-    const [universityCount, setUniversityCount] = useState<number>(
-        initialParams.universities
-    );
-    const [discountPercentage, setDiscountPercentage] = useState<number>(
-        initialParams.discount
-    );
+    const [universityCount, setUniversityCount] = useState<number>(initialParams.universities);
+    const [discountPercentage, setDiscountPercentage] = useState<number>(initialParams.discount);
     const [currency, setCurrency] = useState<Currency>(
         CURRENCIES.find((c) => c.code === initialParams.currency) || CURRENCIES[0]
     );
     const [programType, setProgramType] = useState<ProgramType>(
         initialParams.program === "master" ? "master" : "bachelor"
     );
+    const [lang, setLang] = useState<string>(initialParams.lang);
 
-    // Sync state to URL
+    // --- SYNC STATE TO URL ---
     useEffect(() => {
         setQueryParams({
             countries: selectedCountries.map((c) => c.key),
             universities: universityCount,
             program: programType,
             currency: currency.code,
-            discount: discountPercentage
+            discount: discountPercentage,
+            lang,
         });
     }, [
         selectedCountries,
         universityCount,
         programType,
         currency,
-        discountPercentage
+        discountPercentage,
+        lang,
     ]);
+
+    // --- SYNC LANGUAGE ---
+    useEffect(() => {
+        if (i18n.language !== lang) {
+            i18n.changeLanguage(lang);
+        }
+    }, [lang, i18n]);
 
     const handleCountryChange = (country: Country) => {
         setSelectedCountries((prev) =>
@@ -133,27 +271,32 @@ const App: React.FC = () => {
         );
     };
 
-    const priceKZT = calculatePrice(
-        selectedCountries,
+    const selectedKeys = selectedCountries.map((c) => c.key);
+    const { price: basePrice, comboKey: baseCombo } = getBasePrice(selectedKeys, programType);
+    const { price: perUnivPrice, comboKey: perUnivCombo } = getPerUniversityPrice(
+        selectedKeys,
         universityCount,
         programType
     );
-    const price = priceKZT * currency.rate;
-    const discountedPrice = price - (price * discountPercentage) / 100;
+
+    const universitiesTotal = perUnivPrice * universityCount;
+    const totalKZT = basePrice + universitiesTotal;
+    const total = totalKZT * currency.rate;
+    const discountedTotal = total - (total * discountPercentage) / 100;
 
     return (
         <div className="min-h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 to-blue-200">
             {/* Header */}
             <header className="w-full bg-white shadow flex flex-col sm:flex-row items-center justify-between px-4 py-3">
-                <div className="text-xl font-bold mb-2 sm:mb-0">Pricing Calculator</div>
+                <div className="text-xl font-bold mb-2 sm:mb-0">{t("pricing_calculator")}</div>
                 <div className="flex gap-4 items-center">
                     {/* Language Selector */}
                     <div>
                         <label className="font-semibold mr-1">{t("language")}:</label>
                         <select
                             className="border rounded p-1"
-                            value={i18n.language}
-                            onChange={(e) => i18n.changeLanguage(e.target.value)}
+                            value={lang}
+                            onChange={(e) => setLang(e.target.value)}
                         >
                             <option value="ru">🇷🇺 {t("russian")}</option>
                             <option value="en">🇺🇸 {t("english")}</option>
@@ -249,11 +392,6 @@ const App: React.FC = () => {
                             className="w-full"
                         />
                     </div>
-                    {/* Total Price */}
-                    <div className="text-center text-2xl font-bold bg-blue-100 rounded p-6 mb-8">
-                        {t("total_price")}: {currency.symbol}
-                        {price.toFixed(2)} {currency.code}
-                    </div>
                     {/* Discount */}
                     <div className="mb-8">
                         <label className="block font-semibold mb-1">
@@ -269,10 +407,51 @@ const App: React.FC = () => {
                             className="w-full"
                         />
                     </div>
-                    {/* Discounted Price */}
-                    <div className="text-center text-2xl font-bold bg-blue-100 rounded p-6">
-                        {t("discounted_price")}: {currency.symbol}
-                        {discountedPrice.toFixed(2)} {currency.code}
+                    {/* Detailed Breakdown */}
+                    <div className="mt-8 p-4 bg-gray-50 rounded">
+                        <div className="font-bold mb-2">{t("selection_details")}:</div>
+                        <div>
+                            <strong>{t("countries")}:</strong>{" "}
+                            {selectedCountries.length === 0
+                                ? t("none")
+                                : selectedCountries.map((c) => `${c.flag} ${c.label}`).join(", ")}
+                        </div>
+                        <div>
+                            <strong>{t("base_price")}:</strong>{" "}
+                            {baseCombo
+                                ? `${t("special_price_for")} [${baseCombo.replace(/-/g, ", ")}]: ${basePrice.toLocaleString()} KZT`
+                                : selectedCountries.length === 0
+                                    ? "—"
+                                    : selectedCountries
+                                        .map(
+                                            (c) =>
+                                                `${c.flag} ${c.label}: ${BASE_PRICES[c.key][programType].toLocaleString()} KZT`
+                                        )
+                                        .join(" + ")}
+                        </div>
+                        <div>
+                            <strong>{t("universities")}:</strong> {universityCount}
+                        </div>
+                        <div>
+                            <strong>{t("per_university_price")}:</strong>{" "}
+                            {perUnivCombo && perUnivCombo !== "default"
+                                ? `${t("special_price_for")} [${perUnivCombo.replace(/-/g, ", ")}]: ${perUnivPrice.toLocaleString()} KZT`
+                                : `${perUnivPrice.toLocaleString()} KZT`}
+                        </div>
+                        <div>
+                            <strong>{t("universities_total")}:</strong> {universitiesTotal.toLocaleString()} KZT
+                        </div>
+                        <div>
+                            <strong>{t("subtotal")}:</strong> {totalKZT.toLocaleString()} KZT
+                        </div>
+                        <div>
+                            <strong>{t("discount")}:</strong> {discountPercentage}%
+                        </div>
+                        <div>
+                            <strong>{t("total")}: ({currency.code}):</strong>{" "}
+                            {discountedTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}{" "}
+                            {currency.symbol}
+                        </div>
                     </div>
                 </div>
             </main>
