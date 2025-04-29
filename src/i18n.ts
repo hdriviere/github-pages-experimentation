@@ -33,7 +33,9 @@ const resources = {
             "italy": "Италия",
             "united_kingdom": "Великобритания",
             "united_states_of_america": "Соединённые Штаты Америки",
-            "south_korea": "Южная Корея"
+            "south_korea": "Южная Корея",
+            "fast_payment": "Оплата менее чем за 3 дня",
+            "duo_booking": "Бронирование вдвоём (с другом)"
         }
     },
     en: {
@@ -67,7 +69,9 @@ const resources = {
             "italy": "Italy",
             "united_kingdom": "United Kingdom",
             "united_states_of_america": "United States of America",
-            "south_korea": "South Korea"
+            "south_korea": "South Korea",
+            "fast_payment": "Pay in less than 3 days",
+            "duo_booking": "Booking as a duo (with a friend)"
         }
     },
     fr: {
@@ -101,7 +105,9 @@ const resources = {
             "italy": "Italie",
             "united_kingdom": "Royaume-Uni",
             "united_states_of_america": "États-Unis d'Amérique",
-            "south_korea": "Corée du Sud"
+            "south_korea": "Corée du Sud",
+            "fast_payment": "Payer en moins de 3 jours",
+            "duo_booking": "Réservation en duo (avec un ami)"
         }
     }
     // Add more languages here

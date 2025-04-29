@@ -107,16 +107,13 @@ export const PriceBreakdown: React.FC<Props> = ({
             <div>
                 <strong>{t("base_price")}:</strong>{" "}
                 {baseCombo
-                    ? `${t("special_price_for")} [${baseCombo.replace(/-/g, ", ")}]: ${formatCurrency(basePrice, currency)}`
+                    ? `${t("special_price_for")} [${baseCombo.replace(/-/g, ", ")}]: ${formatKZT(basePrice)}`
                     : selectedCountries.length === 0
                         ? "—"
                         : selectedCountries
                             .map(
                                 (c) =>
-                                    `${c.flag} ${t(c.name)}: ${formatCurrency(
-                                        BASE_PRICES[c.key][programType],
-                                        currency
-                                    )}`
+                                    `${c.flag} ${t(c.name)}: ${formatKZT(BASE_PRICES[c.key][programType])}`
                             )
                             .join(" + ")}
             </div>
@@ -126,14 +123,14 @@ export const PriceBreakdown: React.FC<Props> = ({
             <div>
                 <strong>{t("per_university_price")}:</strong>{" "}
                 {perUnivCombo && perUnivCombo !== "default"
-                    ? `${t("special_price_for")} [${perUnivCombo.replace(/-/g, ", ")}]: ${formatCurrency(perUnivPrice, currency)}`
-                    : formatCurrency(perUnivPrice, currency)}
+                    ? `${t("special_price_for")} [${perUnivCombo.replace(/-/g, ", ")}]: ${formatKZT(perUnivPrice)}`
+                    : formatKZT(perUnivPrice)}
             </div>
             <div>
-                <strong>{t("universities_total")}:</strong> {formatCurrency(universitiesTotal, currency)}
+                <strong>{t("universities_total")}:</strong> {formatKZT(universitiesTotal)}
             </div>
             <div>
-                <strong>{t("subtotal")}:</strong> {formatCurrency(totalKZT, currency)}
+                <strong>{t("subtotal")}:</strong> {formatKZT(totalKZT)}
             </div>
             <div>
                 <strong>{t("discount")}:</strong> {discountPercentage}%

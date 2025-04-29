@@ -4,16 +4,16 @@ import { Header } from "./components/Header";
 import { CountrySelector } from "./components/CountrySelector";
 import { ProgramTypeSelector } from "./components/ProgramTypeSelector";
 import { UniversitySlider } from "./components/UniversitySlider";
-import { DiscountSlider } from "./components/DiscountSlider";
 import { PriceBreakdown } from "./components/PriceBreakdown";
 import {
     getBasePrice,
     getPerUniversityPrice,
 } from "./pricing/pricingUtils";
 import { getQueryParams, setQueryParams } from "./hooks/useUrlSync";
-import { COUNTRIES, CURRENCIES } from "./pricing/pricingData";
-import { Country, Currency, ProgramType } from "./types";
+import {COUNTRIES, CURRENCIES, DISCOUNT_OPTIONS} from "./pricing/pricingData";
+import { Country, Currency, ProgramType, Discount } from "./types";
 import "./i18n";
+import {DiscountOptions} from "./components/DiscountOptions.tsx";
 
 const App: React.FC = () => {
     const { i18n } = useTranslation();
@@ -25,7 +25,9 @@ const App: React.FC = () => {
         COUNTRIES.filter((c) => initialParams.countries.includes(c.key))
     );
     const [universityCount, setUniversityCount] = useState<number>(initialParams.universities);
-    const [discountPercentage, setDiscountPercentage] = useState<number>(initialParams.discount);
+    const [selectedDiscounts, setSelectedDiscounts] = useState<Discount[]>(
+        DISCOUNT_OPTIONS.filter((c) => initialParams.discounts.includes(c.key))
+    );
     const [currency, setCurrency] = useState<Currency>(
         CURRENCIES.find((c) => c.code === initialParams.currency) || CURRENCIES[0]
     );
@@ -41,14 +43,14 @@ const App: React.FC = () => {
             universities: universityCount,
             program: programType,
             currency: currency.code,
-            discount: discountPercentage,
+            discounts: selectedDiscounts.map((d) => d.key),
         });
     }, [
         selectedCountries,
         universityCount,
         programType,
         currency,
-        discountPercentage,
+        selectedDiscounts,
     ]);
 
     // --- SYNC LANGUAGE ---
@@ -69,6 +71,9 @@ const App: React.FC = () => {
     const universitiesTotal = perUnivPrice * universityCount;
     const totalKZT = basePrice + universitiesTotal;
     const total = totalKZT * currency.rate;
+    const discountPercentage = DISCOUNT_OPTIONS
+        .filter((opt) => selectedDiscounts.includes(opt))
+        .reduce((sum, opt) => sum + opt.value, 0);
     const discountedTotal = total - (total * discountPercentage) / 100;
 
     return (
@@ -93,9 +98,9 @@ const App: React.FC = () => {
                         universityCount={universityCount}
                         setUniversityCount={setUniversityCount}
                     />
-                    <DiscountSlider
-                        discountPercentage={discountPercentage}
-                        setDiscountPercentage={setDiscountPercentage}
+                    <DiscountOptions
+                        selectedDiscounts={selectedDiscounts}
+                        setSelectedDiscounts={setSelectedDiscounts}
                     />
                     <PriceBreakdown
                         selectedCountries={selectedCountries}

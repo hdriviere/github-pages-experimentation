@@ -12,4 +12,10 @@ export type Currency = {
     flag: string;
 };
 
+export type Discount= {
+    key: string;
+    label: string;
+    value: number; // percentage
+};
+
 export type ProgramType = "bachelor" | "master";

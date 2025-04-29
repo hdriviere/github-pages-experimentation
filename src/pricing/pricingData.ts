@@ -1,4 +1,4 @@
-import { Country, Currency } from "../types";
+import { Country, Currency, Discount } from "../types";
 
 export const COUNTRIES: Country[] = [
     { key: "cn", name: "china", label: "China", flag: "🇨🇳" },
@@ -14,6 +14,12 @@ export const CURRENCIES: Currency[] = [
     { code: "USD", symbol: "$", rate: 0.0019, flag: "🇺🇸" },
     { code: "EUR", symbol: "€", rate: 0.0017, flag: "🇪🇺" },
     { code: "GBP", symbol: "£", rate: 0.0015, flag: "🇬🇧" }
+];
+
+export const DISCOUNT_OPTIONS: Discount[] = [
+    { key: "fast_payment", label: "Pay in less than 3 days", value: 5 },
+    { key: "duo_booking", label: "Booking as a duo (with a friend)", value: 10 },
+    // Add more options as needed
 ];
 
 export const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
