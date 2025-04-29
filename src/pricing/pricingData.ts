@@ -1,0 +1,92 @@
+import { Country, Currency } from "../types";
+
+export const COUNTRIES: Country[] = [
+    { key: "cn", name: "china", label: "China", flag: "🇨🇳" },
+    { key: "hk", name: "hong_kong", label: "Hong Kong", flag: "🇭🇰" },
+    { key: "it", name: "italy", label: "Italy", flag: "🇮🇹" },
+    { key: "gb", name: "united_kingdom", label: "United Kingdom", flag: "🇬🇧" },
+    { key: "us", name: "united_states_of_america", label: "United States of America", flag: "🇺🇸" },
+    { key: "kr", name: "south_korea", label: "South Korea", flag: "🇰🇷" }
+];
+
+export const CURRENCIES: Currency[] = [
+    { code: "KZT", symbol: "₸", rate: 1, flag: "🇰🇿" },
+    { code: "USD", symbol: "$", rate: 0.0019, flag: "🇺🇸" },
+    { code: "EUR", symbol: "€", rate: 0.0017, flag: "🇪🇺" },
+    { code: "GBP", symbol: "£", rate: 0.0015, flag: "🇬🇧" }
+];
+
+export const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
+    cn: { bachelor: 400_000, master: 590_000 },
+    hk: { bachelor: 400_000, master: 590_000 },
+    it: { bachelor: 400_000, master: 590_000 },
+    gb: { bachelor: 400_000, master: 590_000 },
+    us: { bachelor: 400_000, master: 590_000 },
+    kr: { bachelor: 400_000, master: 590_000 },
+};
+
+export const SPECIAL_BASE_PRICES: Record<
+    string,
+    { bachelor: number; master: number }
+> = {
+    "gb-us": { bachelor: 750_000, master: 1_000_000 },
+    "gb-us-*": { bachelor: 900_000, master: 1_200_000 },
+    "cn-hk": { bachelor: 700_000, master: 950_000 },
+    "cn-hk-it": { bachelor: 1_000_000, master: 1_400_000 },
+};
+
+export const PER_UNIVERSITY_PRICES: {
+    [key: string]: {
+        bachelor: { max: number; price: number }[];
+        master: { max: number; price: number }[];
+    };
+} = {
+    default: {
+        bachelor: [
+            { max: 3, price: 100_000 },
+            { max: 6, price: 90_000 },
+            { max: Infinity, price: 80_000 },
+        ],
+        master: [
+            { max: 3, price: 150_000 },
+            { max: 6, price: 130_000 },
+            { max: Infinity, price: 110_000 },
+        ],
+    },
+    "us-gb-*": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+    "cn-hk": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+    "us-gb": {
+        bachelor: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: Infinity, price: 100_000 },
+        ],
+    },
+};

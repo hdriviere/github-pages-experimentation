@@ -27,7 +27,13 @@ const resources = {
             "universities_total": "Итого за университеты",
             "subtotal": "Промежуточный итог",
             "discount": "Скидка",
-            "total": "Итого"
+            "total": "Итого",
+            "china": "Китай",
+            "hong_kong": "Гонконг",
+            "italy": "Италия",
+            "united_kingdom": "Великобритания",
+            "united_states_of_america": "Соединённые Штаты Америки",
+            "south_korea": "Южная Корея"
         }
     },
     en: {
@@ -55,7 +61,13 @@ const resources = {
             "universities_total": "Universities total",
             "subtotal": "Subtotal",
             "discount": "Discount",
-            "total": "Total"
+            "total": "Total",
+            "china": "China",
+            "hong_kong": "Hong Kong",
+            "italy": "Italy",
+            "united_kingdom": "United Kingdom",
+            "united_states_of_america": "United States of America",
+            "south_korea": "South Korea"
         }
     },
     fr: {
@@ -83,7 +95,13 @@ const resources = {
             "universities_total": "Total universités",
             "subtotal": "Sous-total",
             "discount": "Remise",
-            "total": "Total"
+            "total": "Total",
+            "china": "Chine",
+            "hong_kong": "Hong Kong",
+            "italy": "Italie",
+            "united_kingdom": "Royaume-Uni",
+            "united_states_of_america": "États-Unis d'Amérique",
+            "south_korea": "Corée du Sud"
         }
     }
     // Add more languages here
