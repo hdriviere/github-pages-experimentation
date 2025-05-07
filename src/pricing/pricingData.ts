@@ -23,12 +23,12 @@ export const DISCOUNT_OPTIONS: Discount[] = [
 ];
 
 export const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
-    cn: { bachelor: 400_000, master: 590_000 },
-    hk: { bachelor: 400_000, master: 590_000 },
-    it: { bachelor: 400_000, master: 590_000 },
-    gb: { bachelor: 400_000, master: 590_000 },
-    us: { bachelor: 400_000, master: 590_000 },
-    kr: { bachelor: 400_000, master: 590_000 },
+    cn: { bachelor: 340_000, master: 390_000 },
+    hk: { bachelor: 400_000, master: 450_000 },
+    it: { bachelor: 400_000, master: 440_000 },
+    gb: { bachelor: 450_000, master: 470_000 },
+    us: { bachelor: 450_000, master: 470_000 },
+    kr: { bachelor: 370_000, master: 420_000 },
 };
 
 export const SPECIAL_BASE_PRICES: Record<
@@ -59,40 +59,84 @@ export const PER_UNIVERSITY_PRICES: {
             { max: Infinity, price: 110_000 },
         ],
     },
-    "us-gb-*": {
+    "cn": {
         bachelor: [
-            { max: 3, price: 95_000 },
-            { max: 6, price: 85_000 },
-            { max: Infinity, price: 75_000 },
+            { max: 3, price: 110_000 },
+            { max: 9, price: 90_000 },
+            { max: Infinity, price: 80_000 },
         ],
         master: [
             { max: 3, price: 140_000 },
             { max: 6, price: 120_000 },
-            { max: Infinity, price: 100_000 },
+            { max: 9, price: 110_000 },
+            { max: Infinity, price: 90_000 },
         ],
     },
-    "cn-hk": {
+    "hk": {
         bachelor: [
-            { max: 3, price: 95_000 },
-            { max: 6, price: 85_000 },
-            { max: Infinity, price: 75_000 },
+            { max: 3, price: 110_000 },
+            { max: 9, price: 90_000 },
+            { max: Infinity, price: 80_000 },
         ],
         master: [
             { max: 3, price: 140_000 },
             { max: 6, price: 120_000 },
-            { max: Infinity, price: 100_000 },
+            { max: 9, price: 110_000 },
+            { max: Infinity, price: 90_000 },
         ],
     },
-    "us-gb": {
+    "it": {
         bachelor: [
-            { max: 3, price: 95_000 },
-            { max: 6, price: 85_000 },
-            { max: Infinity, price: 75_000 },
+            { max: 3, price: 110_000 },
+            { max: 9, price: 90_000 },
+            { max: Infinity, price: 80_000 },
         ],
         master: [
             { max: 3, price: 140_000 },
             { max: 6, price: 120_000 },
-            { max: Infinity, price: 100_000 },
+            { max: 9, price: 110_000 },
+            { max: Infinity, price: 90_000 },
+        ],
+    },
+    "gb": {
+        bachelor: [
+            { max: 3, price: 130_000 },
+            { max: 6, price: 115_000 },
+            { max: 9, price: 100_000 },
+            { max: Infinity, price: 90_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: 9, price: 115_000 },
+            { max: Infinity, price: 110_000 },
+        ],
+    },
+    "us": {
+        bachelor: [
+            { max: 3, price: 130_000 },
+            { max: 6, price: 115_000 },
+            { max: 9, price: 100_000 },
+            { max: Infinity, price: 90_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: 9, price: 115_000 },
+            { max: Infinity, price: 110_000 },
+        ],
+    },
+    "kr": {
+        bachelor: [
+            { max: 3, price: 110_000 },
+            { max: 9, price: 90_000 },
+            { max: Infinity, price: 80_000 },
+        ],
+        master: [
+            { max: 3, price: 140_000 },
+            { max: 6, price: 120_000 },
+            { max: 9, price: 110_000 },
+            { max: Infinity, price: 90_000 },
         ],
     },
 };
