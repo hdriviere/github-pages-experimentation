@@ -6,7 +6,7 @@ import { ProgramTypeSelector } from "./components/ProgramTypeSelector";
 import { UniversitySlider } from "./components/UniversitySlider";
 import { PriceBreakdown } from "./components/PriceBreakdown";
 import {
-    getBasePrice,
+    newGetBasePrice,
     getPerUniversityPrice,
 } from "./pricing/pricingUtils";
 import { getQueryParams, setQueryParams } from "./hooks/useUrlSync";
@@ -61,7 +61,11 @@ const App: React.FC = () => {
     }, [lang, i18n]);
 
     const selectedKeys = selectedCountries.map((c) => c.key);
-    const { price: basePrice, comboKey: baseCombo } = getBasePrice(selectedKeys, programType);
+    const { total: basePrice, items: basePriceBreakdown } = newGetBasePrice(
+        selectedCountries,
+        programType
+    );
+    //const { price: basePrice, comboKey: baseCombo } = getBasePrice(selectedKeys, programType);
     const { price: perUnivPrice, comboKey: perUnivCombo } = getPerUniversityPrice(
         selectedKeys,
         universityCount,
@@ -106,7 +110,7 @@ const App: React.FC = () => {
                         selectedCountries={selectedCountries}
                         programType={programType}
                         basePrice={basePrice}
-                        baseCombo={baseCombo}
+                        basePriceBreakdown={basePriceBreakdown}
                         perUnivPrice={perUnivPrice}
                         perUnivCombo={perUnivCombo}
                         universityCount={universityCount}

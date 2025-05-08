@@ -23,6 +23,8 @@ export const DISCOUNT_OPTIONS: Discount[] = [
     // Add more options as needed
 ];
 
+export const BASE_PRICE_DISCOUNTS: number[] = [0, 30, 50] // in percent, for 1st, 2nd, 3rd
+
 export const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
     cn: { bachelor: 340_000, master: 390_000 },
     hk: { bachelor: 400_000, master: 450_000 },

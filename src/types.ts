@@ -12,10 +12,22 @@ export type Currency = {
     flag: string;
 };
 
-export type Discount= {
+export type Discount = {
     key: string;
     label: string;
     value: number; // percentage
+};
+
+export type BasePriceBreakdownItem = {
+    country: Country;
+    originalPrice: number;
+    discountPercent: number; // e.g. 0, 30, 50
+    discountedPrice: number;
+};
+
+export type BasePriceBreakdown = {
+    total: number;
+    items: BasePriceBreakdownItem[];
 };
 
 export type ProgramType = "bachelor" | "master";

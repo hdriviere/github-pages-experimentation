@@ -1,13 +1,12 @@
 import React from "react";
-import { Country, ProgramType, Currency } from "../types";
-import { BASE_PRICES } from "../pricing/pricingData";
+import {Country, ProgramType, Currency, BasePriceBreakdownItem} from "../types";
 import { useTranslation } from "react-i18next";
 
 type Props = {
     selectedCountries: Country[];
     programType: ProgramType;
     basePrice: number;
-    baseCombo: string | null;
+    basePriceBreakdown: BasePriceBreakdownItem[];
     perUnivPrice: number;
     perUnivCombo: string | null;
     universityCount: number;
@@ -84,7 +83,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                                                     selectedCountries,
                                                     programType,
                                                     basePrice,
-                                                    baseCombo,
+                                                    basePriceBreakdown,
                                                     perUnivPrice,
                                                     perUnivCombo,
                                                     universityCount,
@@ -99,23 +98,29 @@ export const PriceBreakdown: React.FC<Props> = ({
         <div className="mt-8 p-4 bg-gray-50 rounded">
             <div className="font-bold mb-2">{t("selection_details")}:</div>
             <div>
+                <strong>{t("program_type")}:</strong> {t(programType)}
+            </div>
+            <div>
                 <strong>{t("countries")}:</strong>{" "}
                 {selectedCountries.length === 0
                     ? t("none")
                     : selectedCountries.map((c) => `${c.flag} ${t(c.name)}`).join(", ")}
             </div>
             <div>
-                <strong>{t("base_price")}:</strong>{" "}
-                {baseCombo
-                    ? `${t("special_price_for")} [${baseCombo.replace(/-/g, ", ")}]: ${formatKZT(basePrice)}`
-                    : selectedCountries.length === 0
-                        ? "—"
-                        : selectedCountries
-                            .map(
-                                (c) =>
-                                    `${c.flag} ${t(c.name)}: ${formatKZT(BASE_PRICES[c.key][programType])}`
-                            )
-                            .join(" + ")}
+                <strong>{t("base_price")}:</strong> {formatKZT(basePrice)}
+                <ul className="ml-4 list-disc">
+                    {basePriceBreakdown.map((item, i) => (
+                        <li key={i}>
+                            {item.country.flag} {t(item.country.name)}: {formatKZT(item.originalPrice)}
+                            {item.discountPercent > 0 && (
+                                <>
+                                    {" "}
+                                    -{item.discountPercent}% = {formatKZT(item.discountedPrice)}
+                                </>
+                            )}
+                        </li>
+                    ))}
+                </ul>
             </div>
             <div>
                 <strong>{t("universities")}:</strong> {universityCount}

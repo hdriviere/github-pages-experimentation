@@ -1,5 +1,5 @@
-import { BASE_PRICES, SPECIAL_BASE_PRICES, PER_UNIVERSITY_PRICES } from "./pricingData";
-import { ProgramType } from "../types";
+import {BASE_PRICES, SPECIAL_BASE_PRICES, PER_UNIVERSITY_PRICES, BASE_PRICE_DISCOUNTS} from "./pricingData";
+import {BasePriceBreakdown, BasePriceBreakdownItem, Country, ProgramType} from "../types";
 
 export function getWildcardComboKey<T>(
     selectedKeys: string[],
@@ -38,6 +38,41 @@ export function getBasePrice(
         price: sorted.reduce((sum, key) => sum + (BASE_PRICES[key]?.[programType] || 0), 0),
         comboKey: null,
     };
+}
+
+export function newGetBasePrice(
+    selectedCountries: Country[],
+    programType: ProgramType
+): BasePriceBreakdown {
+    if (selectedCountries.length === 0) {
+        return { total: 0, items: [] };
+    }
+
+    // Get prices for each country
+    const countryPrices = selectedCountries.map((c) => ({
+        country: c,
+        originalPrice: BASE_PRICES[c.key][programType],
+    }));
+
+    // Sort by price descending
+    countryPrices.sort((a, b) => b.originalPrice - a.originalPrice);
+
+    const items: BasePriceBreakdownItem[] = countryPrices.map((item, idx) => {
+        const discountPercent = BASE_PRICE_DISCOUNTS[idx] || 0;
+        const discountedPrice = Math.round(
+            item.originalPrice * (1 - discountPercent / 100)
+        );
+        return {
+            country: item.country,
+            originalPrice: item.originalPrice,
+            discountPercent,
+            discountedPrice,
+        };
+    });
+
+    const total = items.reduce((sum, item) => sum + item.discountedPrice, 0);
+
+    return { total, items };
 }
 
 export function getPerUniversityPrice(
