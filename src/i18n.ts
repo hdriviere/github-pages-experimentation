@@ -34,7 +34,8 @@ const resources = {
             "united_kingdom": "Великобритания",
             "united_states_of_america": "Соединённые Штаты Америки",
             "south_korea": "Южная Корея",
-            "fast_payment": "Оплата менее чем за 3 дня",
+            "fast_payment": "Оплата менее чем за 5 дня",
+            "fast_payment_eom": "Оплатить до конца месяца",
             "duo_booking": "Бронирование вдвоём (с другом)"
         }
     },
@@ -70,7 +71,8 @@ const resources = {
             "united_kingdom": "United Kingdom",
             "united_states_of_america": "United States of America",
             "south_korea": "South Korea",
-            "fast_payment": "Pay in less than 3 days",
+            "fast_payment": "Pay in less than 5 days",
+            "fast_payment_eom": "Pay before end of month",
             "duo_booking": "Booking as a duo (with a friend)"
         }
     },
@@ -106,7 +108,8 @@ const resources = {
             "united_kingdom": "Royaume-Uni",
             "united_states_of_america": "États-Unis d'Amérique",
             "south_korea": "Corée du Sud",
-            "fast_payment": "Payer en moins de 3 jours",
+            "fast_payment": "Payer en moins de 5 jours",
+            "fast_payment_eom": "Payer avant la fin du mois",
             "duo_booking": "Réservation en duo (avec un ami)"
         }
     }

@@ -17,7 +17,8 @@ export const CURRENCIES: Currency[] = [
 ];
 
 export const DISCOUNT_OPTIONS: Discount[] = [
-    { key: "fast_payment", label: "Pay in less than 3 days", value: 5 },
+    { key: "fast_payment", label: "Pay in less than 5 days", value: 7 },
+    { key: "fast_payment_eom", label: "Pay before end of month", value: 5 },
     { key: "duo_booking", label: "Booking as a duo (with a friend)", value: 10 },
     // Add more options as needed
 ];
@@ -35,10 +36,10 @@ export const SPECIAL_BASE_PRICES: Record<
     string,
     { bachelor: number; master: number }
 > = {
-    "gb-us": { bachelor: 750_000, master: 1_000_000 },
-    "gb-us-*": { bachelor: 900_000, master: 1_200_000 },
-    "cn-hk": { bachelor: 700_000, master: 950_000 },
-    "cn-hk-it": { bachelor: 1_000_000, master: 1_400_000 },
+    // "gb-us": { bachelor: 750_000, master: 1_000_000 },
+    // "gb-us-*": { bachelor: 900_000, master: 1_200_000 },
+    // "cn-hk": { bachelor: 700_000, master: 950_000 },
+    // "cn-hk-it": { bachelor: 1_000_000, master: 1_400_000 },
 };
 
 export const PER_UNIVERSITY_PRICES: {
@@ -49,13 +50,15 @@ export const PER_UNIVERSITY_PRICES: {
 } = {
     default: {
         bachelor: [
-            { max: 3, price: 100_000 },
-            { max: 6, price: 90_000 },
-            { max: Infinity, price: 80_000 },
+            { max: 3, price: 110_000 },
+            { max: 6, price: 100_000 },
+            { max: 9, price: 90_000 },
+            { max: Infinity, price: 85_000 },
         ],
         master: [
-            { max: 3, price: 150_000 },
-            { max: 6, price: 130_000 },
+            { max: 3, price: 140_000 },
+            { max: 6, price: 125_000 },
+            { max: 9, price: 120_000 },
             { max: Infinity, price: 110_000 },
         ],
     },
