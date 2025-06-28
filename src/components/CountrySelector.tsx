@@ -37,7 +37,7 @@ export const CountrySelector: React.FC<Props> = ({
                 </div>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-3">
                 {COUNTRIES.map((country) => {
                     const isSelected = selectedCountries.some((sc) => sc.key === country.key);
                     const isDisabled = !isSelected && selectedCountries.length >= 6;
@@ -45,7 +45,7 @@ export const CountrySelector: React.FC<Props> = ({
                     return (
                         <div
                             key={country.key}
-                            className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                            className={`p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                                 isSelected
                                     ? "border-blue-500 bg-blue-50 shadow-md"
                                     : isDisabled
@@ -54,14 +54,14 @@ export const CountrySelector: React.FC<Props> = ({
                             }`}
                             onClick={() => !isDisabled && handleCountryChange(country)}
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex flex-col items-center gap-2 text-center">
                                 <div className="text-2xl">{country.flag}</div>
                                 <div className="flex-1">
-                                    <div className="font-medium text-gray-900">{t(country.name)}</div>
+                                    <div className="font-medium text-gray-900 text-sm leading-tight">{t(country.name)}</div>
                                 </div>
                                 {isSelected && (
                                     <div className="bg-blue-500 rounded-full p-1">
-                                        <Check className="w-4 h-4 text-white" />
+                                        <Check className="w-3 h-3 text-white" />
                                     </div>
                                 )}
                             </div>

@@ -32,13 +32,19 @@ export const Footer: React.FC = () => {
                     {/* Countries */}
                     <div className="space-y-4">
                         <h4 className="text-lg font-semibold">Study Destinations</h4>
-                        <ul className="space-y-2 text-gray-400">
+                        <ul className="space-y-2 text-gray-400 text-sm">
                             <li>🇺🇸 United States</li>
                             <li>🇬🇧 United Kingdom</li>
                             <li>🇨🇳 China</li>
                             <li>🇮🇹 Italy</li>
                             <li>🇰🇷 South Korea</li>
                             <li>🇭🇰 Hong Kong</li>
+                            <li>🇫🇷 France</li>
+                            <li>🇩🇪 Germany</li>
+                            <li>🇨🇦 Canada</li>
+                            <li>🇦🇪 UAE</li>
+                            <li>🇶🇦 Qatar</li>
+                            <li>🇲🇾 Malaysia</li>
                         </ul>
                     </div>
                     
