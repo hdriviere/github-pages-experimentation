@@ -1,7 +1,7 @@
 import React from "react";
 import { ProgramType } from "../types";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, BookOpen } from "lucide-react";
+import { GraduationCap, BookOpen, School } from "lucide-react";
 
 type Props = {
     programType: ProgramType;
@@ -26,7 +26,30 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                 </div>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div
+                    className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                        programType === "foundation"
+                            ? "border-indigo-500 bg-indigo-50 shadow-md"
+                            : "border-gray-200 bg-white hover:border-indigo-300 hover:shadow-md"
+                    }`}
+                    onClick={() => setProgramType("foundation")}
+                >
+                    <div className="flex items-center gap-4">
+                        <div className={`p-3 rounded-lg ${
+                            programType === "foundation" ? "bg-indigo-500" : "bg-gray-100 group-hover:bg-indigo-100"
+                        }`}>
+                            <School className={`w-6 h-6 ${
+                                programType === "foundation" ? "text-white" : "text-gray-600 group-hover:text-indigo-600"
+                            }`} />
+                        </div>
+                        <div>
+                            <div className="font-semibold text-gray-900">{t("foundation")}</div>
+                            <div className="text-sm text-gray-600">Preparatory program (1 year)</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div
                     className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                         programType === "bachelor"

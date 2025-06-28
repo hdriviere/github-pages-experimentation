@@ -30,4 +30,4 @@ export type BasePriceBreakdown = {
     items: BasePriceBreakdownItem[];
 };
 
-export type ProgramType = "bachelor" | "master";
+export type ProgramType = "foundation" | "bachelor" | "master";

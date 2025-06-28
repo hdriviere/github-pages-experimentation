@@ -37,44 +37,51 @@ export const DISCOUNT_OPTIONS: Discount[] = [
 
 export const BASE_PRICE_DISCOUNTS: number[] = [0, 30, 50] // in percent, for 1st, 2nd, 3rd
 
-export const BASE_PRICES: Record<string, { bachelor: number; master: number }> = {
-    cn: { bachelor: 340_000, master: 390_000 },
-    hk: { bachelor: 400_000, master: 450_000 },
-    it: { bachelor: 400_000, master: 440_000 },
-    gb: { bachelor: 450_000, master: 470_000 },
-    us: { bachelor: 450_000, master: 470_000 },
-    kr: { bachelor: 370_000, master: 420_000 },
-    fr: { bachelor: 420_000, master: 460_000 },
-    hu: { bachelor: 350_000, master: 400_000 },
-    pl: { bachelor: 360_000, master: 410_000 },
-    de: { bachelor: 430_000, master: 480_000 },
-    at: { bachelor: 410_000, master: 450_000 },
-    nl: { bachelor: 440_000, master: 490_000 },
-    es: { bachelor: 390_000, master: 430_000 },
-    be: { bachelor: 420_000, master: 470_000 },
-    ca: { bachelor: 460_000, master: 500_000 },
-    ae: { bachelor: 380_000, master: 430_000 },
-    qa: { bachelor: 390_000, master: 440_000 },
-    my: { bachelor: 320_000, master: 370_000 },
+export const BASE_PRICES: Record<string, { foundation: number; bachelor: number; master: number }> = {
+    cn: { foundation: 280_000, bachelor: 340_000, master: 390_000 },
+    hk: { foundation: 320_000, bachelor: 400_000, master: 450_000 },
+    it: { foundation: 320_000, bachelor: 400_000, master: 440_000 },
+    gb: { foundation: 360_000, bachelor: 450_000, master: 470_000 },
+    us: { foundation: 360_000, bachelor: 450_000, master: 470_000 },
+    kr: { foundation: 300_000, bachelor: 370_000, master: 420_000 },
+    fr: { foundation: 340_000, bachelor: 420_000, master: 460_000 },
+    hu: { foundation: 280_000, bachelor: 350_000, master: 400_000 },
+    pl: { foundation: 290_000, bachelor: 360_000, master: 410_000 },
+    de: { foundation: 350_000, bachelor: 430_000, master: 480_000 },
+    at: { foundation: 330_000, bachelor: 410_000, master: 450_000 },
+    nl: { foundation: 360_000, bachelor: 440_000, master: 490_000 },
+    es: { foundation: 310_000, bachelor: 390_000, master: 430_000 },
+    be: { foundation: 340_000, bachelor: 420_000, master: 470_000 },
+    ca: { foundation: 380_000, bachelor: 460_000, master: 500_000 },
+    ae: { foundation: 300_000, bachelor: 380_000, master: 430_000 },
+    qa: { foundation: 310_000, bachelor: 390_000, master: 440_000 },
+    my: { foundation: 260_000, bachelor: 320_000, master: 370_000 },
 };
 
 export const SPECIAL_BASE_PRICES: Record<
     string,
-    { bachelor: number; master: number }
+    { foundation: number; bachelor: number; master: number }
 > = {
-    // "gb-us": { bachelor: 750_000, master: 1_000_000 },
-    // "gb-us-*": { bachelor: 900_000, master: 1_200_000 },
-    // "cn-hk": { bachelor: 700_000, master: 950_000 },
-    // "cn-hk-it": { bachelor: 1_000_000, master: 1_400_000 },
+    // "gb-us": { foundation: 600_000, bachelor: 750_000, master: 1_000_000 },
+    // "gb-us-*": { foundation: 720_000, bachelor: 900_000, master: 1_200_000 },
+    // "cn-hk": { foundation: 560_000, bachelor: 700_000, master: 950_000 },
+    // "cn-hk-it": { foundation: 800_000, bachelor: 1_000_000, master: 1_400_000 },
 };
 
 export const PER_UNIVERSITY_PRICES: {
     [key: string]: {
+        foundation: { max: number; price: number }[];
         bachelor: { max: number; price: number }[];
         master: { max: number; price: number }[];
     };
 } = {
     default: {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 6, price: 80_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 65_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 6, price: 100_000 },
@@ -89,6 +96,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "cn": {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 9, price: 90_000 },
@@ -102,6 +114,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "hk": {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 9, price: 90_000 },
@@ -115,6 +132,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "it": {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 9, price: 90_000 },
@@ -128,6 +150,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "gb": {
+        foundation: [
+            { max: 3, price: 110_000 },
+            { max: 6, price: 95_000 },
+            { max: 9, price: 80_000 },
+            { max: Infinity, price: 70_000 },
+        ],
         bachelor: [
             { max: 3, price: 130_000 },
             { max: 6, price: 115_000 },
@@ -142,6 +170,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "us": {
+        foundation: [
+            { max: 3, price: 110_000 },
+            { max: 6, price: 95_000 },
+            { max: 9, price: 80_000 },
+            { max: Infinity, price: 70_000 },
+        ],
         bachelor: [
             { max: 3, price: 130_000 },
             { max: 6, price: 115_000 },
@@ -156,6 +190,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "kr": {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 9, price: 90_000 },
@@ -169,6 +208,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "fr": {
+        foundation: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 85_000 },
+            { max: 9, price: 75_000 },
+            { max: Infinity, price: 65_000 },
+        ],
         bachelor: [
             { max: 3, price: 115_000 },
             { max: 6, price: 105_000 },
@@ -183,6 +228,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "hu": {
+        foundation: [
+            { max: 3, price: 85_000 },
+            { max: 9, price: 65_000 },
+            { max: Infinity, price: 55_000 },
+        ],
         bachelor: [
             { max: 3, price: 105_000 },
             { max: 9, price: 85_000 },
@@ -196,6 +246,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "pl": {
+        foundation: [
+            { max: 3, price: 85_000 },
+            { max: 9, price: 65_000 },
+            { max: Infinity, price: 55_000 },
+        ],
         bachelor: [
             { max: 3, price: 105_000 },
             { max: 9, price: 85_000 },
@@ -209,6 +264,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "de": {
+        foundation: [
+            { max: 3, price: 105_000 },
+            { max: 6, price: 90_000 },
+            { max: 9, price: 75_000 },
+            { max: Infinity, price: 65_000 },
+        ],
         bachelor: [
             { max: 3, price: 125_000 },
             { max: 6, price: 110_000 },
@@ -223,6 +284,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "at": {
+        foundation: [
+            { max: 3, price: 100_000 },
+            { max: 6, price: 85_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 120_000 },
             { max: 6, price: 105_000 },
@@ -237,6 +304,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "nl": {
+        foundation: [
+            { max: 3, price: 105_000 },
+            { max: 6, price: 90_000 },
+            { max: 9, price: 75_000 },
+            { max: Infinity, price: 65_000 },
+        ],
         bachelor: [
             { max: 3, price: 125_000 },
             { max: 6, price: 110_000 },
@@ -251,6 +324,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "es": {
+        foundation: [
+            { max: 3, price: 95_000 },
+            { max: 6, price: 80_000 },
+            { max: 9, price: 65_000 },
+            { max: Infinity, price: 55_000 },
+        ],
         bachelor: [
             { max: 3, price: 115_000 },
             { max: 6, price: 100_000 },
@@ -265,6 +344,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "be": {
+        foundation: [
+            { max: 3, price: 100_000 },
+            { max: 6, price: 85_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 120_000 },
             { max: 6, price: 105_000 },
@@ -279,6 +364,12 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "ca": {
+        foundation: [
+            { max: 3, price: 115_000 },
+            { max: 6, price: 100_000 },
+            { max: 9, price: 85_000 },
+            { max: Infinity, price: 75_000 },
+        ],
         bachelor: [
             { max: 3, price: 135_000 },
             { max: 6, price: 120_000 },
@@ -293,6 +384,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "ae": {
+        foundation: [
+            { max: 3, price: 90_000 },
+            { max: 9, price: 70_000 },
+            { max: Infinity, price: 60_000 },
+        ],
         bachelor: [
             { max: 3, price: 110_000 },
             { max: 9, price: 90_000 },
@@ -306,6 +402,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "qa": {
+        foundation: [
+            { max: 3, price: 95_000 },
+            { max: 9, price: 75_000 },
+            { max: Infinity, price: 65_000 },
+        ],
         bachelor: [
             { max: 3, price: 115_000 },
             { max: 9, price: 95_000 },
@@ -319,6 +420,11 @@ export const PER_UNIVERSITY_PRICES: {
         ],
     },
     "my": {
+        foundation: [
+            { max: 3, price: 80_000 },
+            { max: 9, price: 60_000 },
+            { max: Infinity, price: 50_000 },
+        ],
         bachelor: [
             { max: 3, price: 100_000 },
             { max: 9, price: 80_000 },

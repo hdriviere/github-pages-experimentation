@@ -3,7 +3,7 @@ export function getQueryParams() {
     return {
         countries: params.get("countries")?.split("-").filter(Boolean) || [],
         universities: Number(params.get("universities")) || 1,
-        program: params.get("program") === "master" ? "master" : "bachelor",
+        program: params.get("program") === "master" ? "master" : params.get("program") === "foundation" ? "foundation" : "bachelor",
         currency: params.get("currency") || "KZT",
         discounts: params.get("discounts")?.split("-").filter(Boolean) || [],
         lang: params.get("lang") || "en",
