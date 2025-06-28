@@ -32,7 +32,7 @@ export const Hero: React.FC = () => {
                         <div className="text-center">
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <BookOpen className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-                                <div className="text-2xl font-bold text-gray-900">500+</div>
+                                <div className="text-2xl font-bold text-gray-900">150+</div>
                                 <div className="text-sm text-gray-600 font-medium">Universities</div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
                         <div className="text-center">
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <Users className="w-8 h-8 text-indigo-600 mx-auto mb-3" />
-                                <div className="text-2xl font-bold text-gray-900">10K+</div>
+                                <div className="text-2xl font-bold text-gray-900">1K+</div>
                                 <div className="text-sm text-gray-600 font-medium">Students Helped</div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ export const Hero: React.FC = () => {
                         <div className="text-center">
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-3" />
-                                <div className="text-2xl font-bold text-gray-900">95%</div>
+                                <div className="text-2xl font-bold text-gray-900">98%</div>
                                 <div className="text-sm text-gray-600 font-medium">Success Rate</div>
                             </div>
                         </div>

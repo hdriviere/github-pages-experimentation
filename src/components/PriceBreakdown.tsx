@@ -1,7 +1,7 @@
 import React from "react";
 import { Country, ProgramType, Currency, BasePriceBreakdownItem } from "../types";
 import { useTranslation } from "react-i18next";
-import { Calculator, CreditCard, TrendingDown } from "lucide-react";
+import { Calculator, TrendingDown } from "lucide-react";
 
 type Props = {
     selectedCountries: Country[];
@@ -9,7 +9,6 @@ type Props = {
     basePrice: number;
     basePriceBreakdown: BasePriceBreakdownItem[];
     perUnivPrice: number;
-    perUnivCombo: string | null;
     universityCount: number;
     universitiesTotal: number;
     totalKZT: number;
@@ -70,7 +69,6 @@ export const PriceBreakdown: React.FC<Props> = ({
     basePrice,
     basePriceBreakdown,
     perUnivPrice,
-    perUnivCombo,
     universityCount,
     universitiesTotal,
     totalKZT,
@@ -181,8 +179,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <span className="text-lg font-bold text-gray-900">Total Cost</span>
-                            <div className="text-sm text-gray-600">in {currency.code}</div>
+                            <span className="text-lg font-bold text-gray-900">Total Cost <span className="text-sm text-gray-600">in {currency.code}</span></span>
                         </div>
                         <div className="text-right">
                             <div className="text-2xl font-bold text-blue-700">
@@ -196,16 +193,6 @@ export const PriceBreakdown: React.FC<Props> = ({
                         </div>
                     </div>
                 </div>
-                
-                {/* CTA Button */}
-                <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
-                    <CreditCard className="w-5 h-5" />
-                    Get Started Today
-                </button>
-                
-                <p className="text-xs text-gray-500 text-center">
-                    * Prices are estimates and may vary based on specific requirements
-                </p>
             </div>
         </div>
     );
