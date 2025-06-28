@@ -28,7 +28,7 @@ export const ProgramTypeSelector: React.FC<Props> = ({
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div
-                    className={`relative p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                    className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                         programType === "bachelor"
                             ? "border-indigo-500 bg-indigo-50 shadow-md"
                             : "border-gray-200 bg-white hover:border-indigo-300 hover:shadow-md"
@@ -48,19 +48,10 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                             <div className="text-sm text-gray-600">Undergraduate degree (3-4 years)</div>
                         </div>
                     </div>
-                    
-                    <input
-                        type="radio"
-                        name="programType"
-                        value="bachelor"
-                        checked={programType === "bachelor"}
-                        onChange={() => setProgramType("bachelor")}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
                 </div>
                 
                 <div
-                    className={`relative p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                    className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                         programType === "master"
                             ? "border-indigo-500 bg-indigo-50 shadow-md"
                             : "border-gray-200 bg-white hover:border-indigo-300 hover:shadow-md"
@@ -80,15 +71,6 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                             <div className="text-sm text-gray-600">Graduate degree (1-2 years)</div>
                         </div>
                     </div>
-                    
-                    <input
-                        type="radio"
-                        name="programType"
-                        value="master"
-                        checked={programType === "master"}
-                        onChange={() => setProgramType("master")}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
                 </div>
             </div>
         </div>

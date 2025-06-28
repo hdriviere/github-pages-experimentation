@@ -54,7 +54,7 @@ export const DiscountOptions: React.FC<Props> = ({
                     return (
                         <div
                             key={discount.key}
-                            className={`relative p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                            className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                                 isSelected
                                     ? "border-green-500 bg-green-50 shadow-md"
                                     : "border-gray-200 bg-white hover:border-green-300 hover:shadow-md"
@@ -80,13 +80,6 @@ export const DiscountOptions: React.FC<Props> = ({
                                     -{discount.value}%
                                 </div>
                             </div>
-                            
-                            <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => handleChange(discount)}
-                                className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
                         </div>
                     );
                 })}

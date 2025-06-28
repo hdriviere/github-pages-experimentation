@@ -45,7 +45,7 @@ export const CountrySelector: React.FC<Props> = ({
                     return (
                         <div
                             key={country.key}
-                            className={`relative p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                            className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                                 isSelected
                                     ? "border-blue-500 bg-blue-50 shadow-md"
                                     : isDisabled
@@ -65,14 +65,6 @@ export const CountrySelector: React.FC<Props> = ({
                                     </div>
                                 )}
                             </div>
-                            
-                            <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => handleCountryChange(country)}
-                                disabled={isDisabled}
-                                className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
                         </div>
                     );
                 })}
