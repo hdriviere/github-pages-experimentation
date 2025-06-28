@@ -127,7 +127,7 @@ const App: React.FC = () => {
                         
                         {/* Price Summary */}
                         <div className="lg:col-span-1">
-                            <div className="sticky top-24 max-h-[calc(100vh-8rem)] price-breakdown-scroll overflow-y-auto">
+                            <div className="sticky top-8">
                                 <PriceBreakdown
                                     selectedCountries={selectedCountries}
                                     programType={programType}
