@@ -1,6 +1,7 @@
 import React from "react";
-import {Country, ProgramType, Currency, BasePriceBreakdownItem} from "../types";
+import { Country, ProgramType, Currency, BasePriceBreakdownItem } from "../types";
 import { useTranslation } from "react-i18next";
+import { Calculator, CreditCard, TrendingDown } from "lucide-react";
 
 type Props = {
     selectedCountries: Country[];
@@ -18,7 +19,6 @@ type Props = {
 };
 
 function formatKZT(value: number): string {
-    // Dot as thousands separator, no decimals, symbol after
     return new Intl.NumberFormat("ru-RU", {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
@@ -26,36 +26,24 @@ function formatKZT(value: number): string {
 }
 
 function formatUSD(value: number): string {
-    // Comma as thousands separator, dot as decimal, symbol before
-    return (
-        "$" +
-        value.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        })
-    );
+    return "$" + value.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 }
 
 function formatEUR(value: number): string {
-    // Space as thousands separator, comma as decimal, symbol after
-    return (
-        value
-            .toLocaleString("fr-FR", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            }) + " €"
-    );
+    return value.toLocaleString("fr-FR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }) + " €";
 }
 
 function formatGBP(value: number): string {
-    // Comma as thousands separator, dot as decimal, symbol before
-    return (
-        "£" +
-        value.toLocaleString("en-GB", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        })
-    );
+    return "£" + value.toLocaleString("en-GB", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 }
 
 function formatCurrency(value: number, currency: Currency): string {
@@ -69,80 +57,155 @@ function formatCurrency(value: number, currency: Currency): string {
         case "GBP":
             return formatGBP(value);
         default:
-            return (
-                currency.symbol +
-                value.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                })
-            );
+            return currency.symbol + value.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            });
     }
 }
 
 export const PriceBreakdown: React.FC<Props> = ({
-                                                    selectedCountries,
-                                                    programType,
-                                                    basePrice,
-                                                    basePriceBreakdown,
-                                                    perUnivPrice,
-                                                    perUnivCombo,
-                                                    universityCount,
-                                                    universitiesTotal,
-                                                    totalKZT,
-                                                    discountPercentage,
-                                                    discountedTotal,
-                                                    currency,
-                                                }) => {
+    selectedCountries,
+    programType,
+    basePrice,
+    basePriceBreakdown,
+    perUnivPrice,
+    perUnivCombo,
+    universityCount,
+    universitiesTotal,
+    totalKZT,
+    discountPercentage,
+    discountedTotal,
+    currency,
+}) => {
     const { t } = useTranslation();
+    
     return (
-        <div className="mt-8 p-4 bg-gray-50 rounded">
-            <div className="font-bold mb-2">{t("selection_details")}:</div>
-            <div>
-                <strong>{t("program_type")}:</strong> {t(programType)}
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
+                <div className="flex items-center gap-3 mb-2">
+                    <Calculator className="w-6 h-6" />
+                    <h3 className="text-xl font-semibold">Cost Breakdown</h3>
+                </div>
+                <p className="text-blue-100 text-sm">Detailed pricing for your education plan</p>
             </div>
-            <div>
-                <strong>{t("countries")}:</strong>{" "}
-                {selectedCountries.length === 0
-                    ? t("none")
-                    : selectedCountries.map((c) => `${c.flag} ${t(c.name)}`).join(", ")}
-            </div>
-            <div>
-                <strong>{t("base_price")}:</strong> {formatKZT(basePrice)}
-                <ul className="ml-4 list-disc">
-                    {basePriceBreakdown.map((item, i) => (
-                        <li key={i}>
-                            {item.country.flag} {t(item.country.name)}: {formatKZT(item.originalPrice)}
-                            {item.discountPercent > 0 && (
-                                <>
-                                    {" "}
-                                    -{item.discountPercent}% = {formatKZT(item.discountedPrice)}
-                                </>
+            
+            <div className="p-6 space-y-6">
+                {/* Selection Summary */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-600">Program Type</span>
+                        <span className="font-semibold text-gray-900 capitalize">{t(programType)}</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-600">Countries</span>
+                        <span className="font-semibold text-gray-900">{selectedCountries.length}</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-600">Universities</span>
+                        <span className="font-semibold text-gray-900">{universityCount}</span>
+                    </div>
+                </div>
+                
+                <hr className="border-gray-200" />
+                
+                {/* Price Details */}
+                <div className="space-y-4">
+                    {/* Base Price */}
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <span className="font-medium text-gray-900">Base Service Fee</span>
+                            <span className="font-semibold">{formatKZT(basePrice)}</span>
+                        </div>
+                        
+                        {basePriceBreakdown.length > 0 && (
+                            <div className="ml-4 space-y-1">
+                                {basePriceBreakdown.map((item, i) => (
+                                    <div key={i} className="flex items-center justify-between text-sm">
+                                        <span className="text-gray-600">
+                                            {item.country.flag} {t(item.country.name)}
+                                            {item.discountPercent > 0 && (
+                                                <span className="text-green-600 ml-1">(-{item.discountPercent}%)</span>
+                                            )}
+                                        </span>
+                                        <span className="text-gray-700">
+                                            {item.discountPercent > 0 ? formatKZT(item.discountedPrice) : formatKZT(item.originalPrice)}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    
+                    {/* University Applications */}
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <span className="font-medium text-gray-900">University Applications</span>
+                            <span className="font-semibold">{formatKZT(universitiesTotal)}</span>
+                        </div>
+                        
+                        <div className="ml-4 text-sm text-gray-600">
+                            {universityCount} × {formatKZT(perUnivPrice)} per application
+                        </div>
+                    </div>
+                </div>
+                
+                <hr className="border-gray-200" />
+                
+                {/* Subtotal */}
+                <div className="flex items-center justify-between text-lg">
+                    <span className="font-semibold text-gray-900">Subtotal</span>
+                    <span className="font-bold">{formatKZT(totalKZT)}</span>
+                </div>
+                
+                {/* Discounts */}
+                {discountPercentage > 0 && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                            <TrendingDown className="w-5 h-5 text-green-600" />
+                            <span className="font-medium text-green-800">Discounts Applied</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <span className="text-green-700">Total Savings ({discountPercentage}%)</span>
+                            <span className="font-semibold text-green-700">
+                                -{formatCurrency((totalKZT * currency.rate * discountPercentage) / 100, currency)}
+                            </span>
+                        </div>
+                    </div>
+                )}
+                
+                {/* Final Total */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <span className="text-lg font-bold text-gray-900">Total Cost</span>
+                            <div className="text-sm text-gray-600">in {currency.code}</div>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-2xl font-bold text-blue-700">
+                                {formatCurrency(discountedTotal, currency)}
+                            </div>
+                            {currency.code !== "KZT" && (
+                                <div className="text-sm text-gray-600">
+                                    ≈ {formatKZT(totalKZT * (1 - discountPercentage / 100))}
+                                </div>
                             )}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div>
-                <strong>{t("universities")}:</strong> {universityCount}
-            </div>
-            <div>
-                <strong>{t("per_university_price")}:</strong>{" "}
-                {perUnivCombo && perUnivCombo !== "default"
-                    ? `${t("special_price_for")} [${perUnivCombo.replace(/-/g, ", ")}]: ${formatKZT(perUnivPrice)}`
-                    : formatKZT(perUnivPrice)}
-            </div>
-            <div>
-                <strong>{t("universities_total")}:</strong> {formatKZT(universitiesTotal)}
-            </div>
-            <div>
-                <strong>{t("subtotal")}:</strong> {formatKZT(totalKZT)}
-            </div>
-            <div>
-                <strong>{t("discount")}:</strong> {discountPercentage}%
-            </div>
-            <div>
-                <strong>{t("total")}: ({currency.code}):</strong>{" "}
-                {formatCurrency(discountedTotal, currency)}
+                        </div>
+                    </div>
+                </div>
+                
+                {/* CTA Button */}
+                <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                    <CreditCard className="w-5 h-5" />
+                    Get Started Today
+                </button>
+                
+                <p className="text-xs text-gray-500 text-center">
+                    * Prices are estimates and may vary based on specific requirements
+                </p>
             </div>
         </div>
     );

@@ -34,7 +34,7 @@ const resources = {
             "united_kingdom": "Великобритания",
             "united_states_of_america": "Соединённые Штаты Америки",
             "south_korea": "Южная Корея",
-            "fast_payment": "Оплата менее чем за 5 дня",
+            "fast_payment": "Оплата менее чем за 5 дней",
             "fast_payment_eom": "Оплатить до конца месяца",
             "duo_booking": "Бронирование вдвоём (с другом)"
         }
@@ -113,7 +113,6 @@ const resources = {
             "duo_booking": "Réservation en duo (avec un ami)"
         }
     }
-    // Add more languages here
 };
 
 i18n.use(initReactI18next).init({

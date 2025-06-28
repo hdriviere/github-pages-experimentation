@@ -2,6 +2,7 @@ import React from "react";
 import { Country } from "../types";
 import { COUNTRIES } from "../pricing/pricingData";
 import { useTranslation } from "react-i18next";
+import { MapPin, Check } from "lucide-react";
 
 type Props = {
     selectedCountries: Country[];
@@ -9,9 +10,9 @@ type Props = {
 };
 
 export const CountrySelector: React.FC<Props> = ({
-                                                     selectedCountries,
-                                                     setSelectedCountries,
-                                                 }) => {
+    selectedCountries,
+    setSelectedCountries,
+}) => {
     const { t } = useTranslation();
 
     const handleCountryChange = (country: Country) => {
@@ -19,32 +20,71 @@ export const CountrySelector: React.FC<Props> = ({
             prev.some((c) => c.key === country.key)
                 ? prev.filter((c) => c.key !== country.key)
                 : prev.length < 6
-                    ? [...prev, country]
-                    : prev
+                ? [...prev, country]
+                : prev
         );
     };
 
     return (
-        <div className="mb-6">
-            <div className="font-semibold mb-2">{t("select_countries")}:</div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {COUNTRIES.map((c) => (
-                    <label key={c.key} className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            checked={selectedCountries.some((sc) => sc.key === c.key)}
-                            onChange={() => handleCountryChange(c)}
-                            disabled={
-                                !selectedCountries.some((sc) => sc.key === c.key) &&
-                                selectedCountries.length >= 6
-                            }
-                        />
-                        {c.flag + " " + t(c.name)}
-                    </label>
-                ))}
+        <div className="space-y-6">
+            <div className="flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold text-gray-900">{t("select_countries")}</h3>
+                    <p className="text-sm text-gray-600">Choose up to 6 destinations for your studies</p>
+                </div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">
-                {selectedCountries.length} / 6 {t("selected")}
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {COUNTRIES.map((country) => {
+                    const isSelected = selectedCountries.some((sc) => sc.key === country.key);
+                    const isDisabled = !isSelected && selectedCountries.length >= 6;
+                    
+                    return (
+                        <div
+                            key={country.key}
+                            className={`relative p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                                isSelected
+                                    ? "border-blue-500 bg-blue-50 shadow-md"
+                                    : isDisabled
+                                    ? "border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed"
+                                    : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-md"
+                            }`}
+                            onClick={() => !isDisabled && handleCountryChange(country)}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="text-2xl">{country.flag}</div>
+                                <div className="flex-1">
+                                    <div className="font-medium text-gray-900">{t(country.name)}</div>
+                                </div>
+                                {isSelected && (
+                                    <div className="bg-blue-500 rounded-full p-1">
+                                        <Check className="w-4 h-4 text-white" />
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => handleCountryChange(country)}
+                                disabled={isDisabled}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                            />
+                        </div>
+                    );
+                })}
+            </div>
+            
+            <div className="flex items-center justify-between text-sm">
+                <span className="text-gray-600">
+                    {selectedCountries.length} / 6 {t("selected")}
+                </span>
+                {selectedCountries.length === 6 && (
+                    <span className="text-blue-600 font-medium">Maximum reached</span>
+                )}
             </div>
         </div>
     );

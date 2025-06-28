@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Header } from "./components/Header";
+import { Hero } from "./components/Hero";
 import { CountrySelector } from "./components/CountrySelector";
 import { ProgramTypeSelector } from "./components/ProgramTypeSelector";
 import { UniversitySlider } from "./components/UniversitySlider";
 import { PriceBreakdown } from "./components/PriceBreakdown";
+import { DiscountOptions } from "./components/DiscountOptions";
+import { Footer } from "./components/Footer";
 import {
     newGetBasePrice,
     getPerUniversityPrice,
@@ -13,7 +16,6 @@ import { getQueryParams, setQueryParams } from "./hooks/useUrlSync";
 import {COUNTRIES, CURRENCIES, DISCOUNT_OPTIONS} from "./pricing/pricingData";
 import { Country, Currency, ProgramType, Discount } from "./types";
 import "./i18n";
-import {DiscountOptions} from "./components/DiscountOptions.tsx";
 
 const App: React.FC = () => {
     const { i18n } = useTranslation();
@@ -65,7 +67,6 @@ const App: React.FC = () => {
         selectedCountries,
         programType
     );
-    //const { price: basePrice, comboKey: baseCombo } = getBasePrice(selectedKeys, programType);
     const { price: perUnivPrice, comboKey: perUnivCombo } = getPerUniversityPrice(
         selectedKeys,
         universityCount,
@@ -81,47 +82,73 @@ const App: React.FC = () => {
     const discountedTotal = total - (total * discountPercentage) / 100;
 
     return (
-        <div className="min-h-screen w-full flex flex-col bg-gradient-to-br from-blue-50 to-blue-200">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
             <Header
                 lang={lang}
                 setLang={setLang}
                 currency={currency}
                 setCurrency={setCurrency}
             />
-            <main className="flex-1 flex items-center justify-center">
-                <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-4 sm:p-8 m-2 sm:m-8">
-                    <ProgramTypeSelector
-                        programType={programType}
-                        setProgramType={setProgramType}
-                    />
-                    <CountrySelector
-                        selectedCountries={selectedCountries}
-                        setSelectedCountries={setSelectedCountries}
-                    />
-                    <UniversitySlider
-                        universityCount={universityCount}
-                        setUniversityCount={setUniversityCount}
-                    />
-                    <DiscountOptions
-                        selectedDiscounts={selectedDiscounts}
-                        setSelectedDiscounts={setSelectedDiscounts}
-                    />
-                    <PriceBreakdown
-                        selectedCountries={selectedCountries}
-                        programType={programType}
-                        basePrice={basePrice}
-                        basePriceBreakdown={basePriceBreakdown}
-                        perUnivPrice={perUnivPrice}
-                        perUnivCombo={perUnivCombo}
-                        universityCount={universityCount}
-                        universitiesTotal={universitiesTotal}
-                        totalKZT={totalKZT}
-                        discountPercentage={discountPercentage}
-                        discountedTotal={discountedTotal}
-                        currency={currency}
-                    />
+            
+            <Hero />
+            
+            <main className="relative">
+                {/* Background decoration */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl"></div>
+                </div>
+                
+                <div className="relative max-w-7xl mx-auto px-4 py-16">
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        {/* Configuration Panel */}
+                        <div className="lg:col-span-2">
+                            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8">
+                                <div className="space-y-8">
+                                    <ProgramTypeSelector
+                                        programType={programType}
+                                        setProgramType={setProgramType}
+                                    />
+                                    <CountrySelector
+                                        selectedCountries={selectedCountries}
+                                        setSelectedCountries={setSelectedCountries}
+                                    />
+                                    <UniversitySlider
+                                        universityCount={universityCount}
+                                        setUniversityCount={setUniversityCount}
+                                    />
+                                    <DiscountOptions
+                                        selectedDiscounts={selectedDiscounts}
+                                        setSelectedDiscounts={setSelectedDiscounts}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Price Summary */}
+                        <div className="lg:col-span-1">
+                            <div className="sticky top-8">
+                                <PriceBreakdown
+                                    selectedCountries={selectedCountries}
+                                    programType={programType}
+                                    basePrice={basePrice}
+                                    basePriceBreakdown={basePriceBreakdown}
+                                    perUnivPrice={perUnivPrice}
+                                    perUnivCombo={perUnivCombo}
+                                    universityCount={universityCount}
+                                    universitiesTotal={universitiesTotal}
+                                    totalKZT={totalKZT}
+                                    discountPercentage={discountPercentage}
+                                    discountedTotal={discountedTotal}
+                                    currency={currency}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
+            
+            <Footer />
         </div>
     );
 };
