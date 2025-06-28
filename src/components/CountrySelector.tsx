@@ -2,7 +2,7 @@ import React from "react";
 import { Country } from "../types";
 import { COUNTRIES } from "../pricing/pricingData";
 import { useTranslation } from "react-i18next";
-import { MapPin, Check } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 type Props = {
     selectedCountries: Country[];
@@ -59,11 +59,6 @@ export const CountrySelector: React.FC<Props> = ({
                                 <div className="flex-1">
                                     <div className="font-medium text-gray-900 text-sm leading-tight">{t(country.name)}</div>
                                 </div>
-                                {isSelected && (
-                                    <div className="bg-blue-500 rounded-full p-1">
-                                        <Check className="w-3 h-3 text-white" />
-                                    </div>
-                                )}
                             </div>
                         </div>
                     );
