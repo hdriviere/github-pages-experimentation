@@ -15,7 +15,7 @@ export const Header: React.FC<Props> = ({ lang, setLang, currency, setCurrency }
     const { t } = useTranslation();
     
     return (
-        <header className="bg-white/95 backdrop-blur-md shadow-lg border-b border-blue-100 sticky top-0 z-50">
+        <header className="bg-white/95 backdrop-blur-md shadow-lg border-b border-blue-100">
             <div className="max-w-7xl mx-auto px-4 py-4">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
                     {/* Logo and Brand */}
