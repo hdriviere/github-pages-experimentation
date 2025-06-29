@@ -5,7 +5,7 @@ const resources = {
     ru: {
         translation: {
             // Header & Navigation
-            "study_abroad": "Обучение за рубежом",
+            "study_abroad": "Образование за рубежом",
             "with_aray_azemkhan": "с Арай Аземхан",
             "russian": "Русский",
             "english": "Английский",
@@ -217,7 +217,7 @@ const resources = {
     fr: {
         translation: {
             // Header & Navigation
-            "study_abroad": "Études à l'étranger",
+            "study_abroad": "Study Abroad",
             "with_aray_azemkhan": "avec Aray Azemkhan",
             "russian": "Russe",
             "english": "Anglais",
