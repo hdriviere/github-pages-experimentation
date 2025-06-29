@@ -4,31 +4,47 @@ import { initReactI18next } from "react-i18next";
 const resources = {
     ru: {
         translation: {
-            "pricing_calculator": "Калькулятор стоимости",
-            "language": "Язык",
+            // Header & Navigation
+            "study_abroad": "Обучение за рубежом",
+            "with_aray_azemkhan": "с Арай Аземхан",
             "russian": "Русский",
             "english": "Английский",
             "french": "Французский",
-            "currency": "Валюта",
+            
+            // Hero Section
+            "your_journey_to": "Ваш путь к",
+            "world_class_education": "Образованию мирового класса",
+            "hero_description": "Рассчитайте персонализированную стоимость обучения за рубежом и откройте для себя возможности в лучших университетах мира. Начните планировать свое международное образование уже сегодня.",
+            "universities_stat": "Университетов",
+            "students_helped_stat": "Студентов помогли",
+            "countries_stat": "Стран",
+            "success_rate_stat": "Успешность",
+            
+            // Program Types
             "program_type": "Тип программы",
+            "select_desired_degree": "Выберите желаемый уровень степени",
             "foundation": "Подготовительная программа",
+            "foundation_description": "Подготовительная программа (1 год)",
             "bachelor": "Бакалавриат",
+            "bachelor_description": "Степень бакалавра (3-4 года)",
             "master": "Магистратура",
+            "master_description": "Степень магистра (1-2 года)",
+            
+            // Country Selection
             "select_countries": "Выберите страны",
+            "choose_up_to_6_destinations": "Выберите до 6 направлений для обучения",
+            "continent": "Континент",
+            "quality": "Качество",
             "selected": "выбрано",
-            "number_of_universities": "Количество университетов",
-            "percentage_of_discount": "Процент скидки",
-            "selection_details": "Детали выбора",
-            "countries": "Страны",
-            "none": "Нет",
-            "base_price": "Базовая стоимость",
-            "special_price_for": "Специальная цена для",
-            "universities": "Университеты",
-            "per_university_price": "Цена за университет",
-            "universities_total": "Итого за университеты",
-            "subtotal": "Промежуточный итог",
-            "discount": "Скидка",
-            "total": "Итого",
+            "maximum_reached": "Достигнут максимум",
+            
+            // Continents
+            "Asia": "Азия",
+            "Europe": "Европа",
+            "North America": "Северная Америка",
+            "Middle East": "Ближний Восток",
+            
+            // Countries
             "china": "Китай",
             "hong_kong": "Гонконг",
             "italy": "Италия",
@@ -47,37 +63,94 @@ const resources = {
             "uae": "ОАЭ",
             "qatar": "Катар",
             "malaysia": "Малайзия",
+            
+            // University Selection
+            "number_of_universities": "Количество университетов",
+            "how_many_universities_apply": "В сколько университетов вы хотите подать заявление?",
+            "universities": "Университетов",
+            "recommended_text": "Рекомендуется: Подавайте заявления в 5-8 университетов для лучших шансов на поступление",
+            
+            // Discounts
+            "special_offers": "Специальные предложения",
+            "save_money_exclusive_discounts": "Экономьте деньги с нашими эксклюзивными скидками",
+            "more_than_5_university": "Выбор более 5 университетов",
             "fast_payment": "Оплата менее чем за 5 дней",
-            "duo_booking": "Бронирование вдвоём (с другом)"
+            "fast_payment_eom": "Быстрая оплата до конца месяца",
+            "testimony": "Разрешение поделиться своим случаем",
+            "duo_booking": "Бронирование вдвоём (с другом)",
+            
+            // Price Breakdown
+            "cost_breakdown": "Разбивка стоимости",
+            "detailed_pricing_education_plan": "Подробная стоимость вашего плана образования",
+            "program_type_label": "Тип программы",
+            "countries_selected": "Выбрано стран",
+            "universities_to_apply": "Университетов для подачи заявлений",
+            "selected_countries": "Выбранные страны",
+            "university_applications": "Заявления в университеты",
+            "per_application": "за заявление",
+            "subtotal": "Промежуточный итог",
+            "discounts_applied": "Применённые скидки",
+            "total_savings": "Общая экономия",
+            "total_cost": "Общая стоимость",
+            "in_currency": "в",
+            "select_countries_to_see_pricing": "Выберите страны, чтобы увидеть подробную стоимость",
+            "choose_study_destinations": "Выберите направления для обучения, чтобы рассчитать стоимость",
+            
+            // Tiers
+            "standard": "стандарт",
+            "premium": "премиум",
+            
+            // General
+            "currency": "Валюта",
+            "language": "Язык",
+            "none": "Нет",
+            "total": "Итого",
+            "discount": "Скидка"
         }
     },
     en: {
         translation: {
-            "pricing_calculator": "Pricing Calculator",
-            "language": "Language",
+            // Header & Navigation
+            "study_abroad": "Study Abroad",
+            "with_aray_azemkhan": "with Aray Azemkhan",
             "russian": "Russian",
             "english": "English",
             "french": "French",
-            "currency": "Currency",
-            "program_type": "Program type",
+            
+            // Hero Section
+            "your_journey_to": "Your Journey to",
+            "world_class_education": "World-Class Education",
+            "hero_description": "Calculate personalized costs for studying abroad and discover opportunities at top universities worldwide. Start planning your international education today.",
+            "universities_stat": "Universities",
+            "students_helped_stat": "Students Helped",
+            "countries_stat": "Countries",
+            "success_rate_stat": "Success Rate",
+            
+            // Program Types
+            "program_type": "Program Type",
+            "select_desired_degree": "Select your desired degree level",
             "foundation": "Foundation",
+            "foundation_description": "Preparatory program (1 year)",
             "bachelor": "Bachelor",
+            "bachelor_description": "Undergraduate degree (3-4 years)",
             "master": "Master",
-            "select_countries": "Select countries",
+            "master_description": "Graduate degree (1-2 years)",
+            
+            // Country Selection
+            "select_countries": "Select Countries",
+            "choose_up_to_6_destinations": "Choose up to 6 destinations for your studies",
+            "continent": "Continent",
+            "quality": "Quality",
             "selected": "selected",
-            "number_of_universities": "Number of universities",
-            "percentage_of_discount": "Percentage of discount",
-            "selection_details": "Selection Details",
-            "countries": "Countries",
-            "none": "None",
-            "base_price": "Base price",
-            "special_price_for": "Special price for",
-            "universities": "Universities",
-            "per_university_price": "Per university price",
-            "universities_total": "Universities total",
-            "subtotal": "Subtotal",
-            "discount": "Discount",
-            "total": "Total",
+            "maximum_reached": "Maximum reached",
+            
+            // Continents
+            "Asia": "Asia",
+            "Europe": "Europe",
+            "North America": "North America",
+            "Middle East": "Middle East",
+            
+            // Countries
             "china": "China",
             "hong_kong": "Hong Kong",
             "italy": "Italy",
@@ -96,39 +169,94 @@ const resources = {
             "uae": "UAE",
             "qatar": "Qatar",
             "malaysia": "Malaysia",
-            "more_than_5_university": "Choose more than 5 university",
+            
+            // University Selection
+            "number_of_universities": "Number of Universities",
+            "how_many_universities_apply": "How many universities do you want to apply to?",
+            "universities": "Universities",
+            "recommended_text": "Recommended: Apply to 5-8 universities for the best chances of acceptance",
+            
+            // Discounts
+            "special_offers": "Special Offers",
+            "save_money_exclusive_discounts": "Save money with our exclusive discounts",
+            "more_than_5_university": "Choose more than 5 universities",
             "fast_payment": "Pay in less than 5 days",
-            "testimony": "Allow to share about there case",
-            "duo_booking": "Booking as a duo (with a friend)"
+            "fast_payment_eom": "Fast payment by end of month",
+            "testimony": "Allow to share about your case",
+            "duo_booking": "Booking as a duo (with a friend)",
+            
+            // Price Breakdown
+            "cost_breakdown": "Cost Breakdown",
+            "detailed_pricing_education_plan": "Detailed pricing for your education plan",
+            "program_type_label": "Program Type",
+            "countries_selected": "Countries Selected",
+            "universities_to_apply": "Universities to Apply",
+            "selected_countries": "Selected Countries",
+            "university_applications": "University Applications",
+            "per_application": "per application",
+            "subtotal": "Subtotal",
+            "discounts_applied": "Discounts Applied",
+            "total_savings": "Total Savings",
+            "total_cost": "Total Cost",
+            "in_currency": "in",
+            "select_countries_to_see_pricing": "Select countries to see detailed pricing",
+            "choose_study_destinations": "Choose your study destinations to calculate costs",
+            
+            // Tiers
+            "standard": "standard",
+            "premium": "premium",
+            
+            // General
+            "currency": "Currency",
+            "language": "Language",
+            "none": "None",
+            "total": "Total",
+            "discount": "Discount"
         }
     },
     fr: {
         translation: {
-            "pricing_calculator": "Calculateur de prix",
-            "language": "Langue",
+            // Header & Navigation
+            "study_abroad": "Études à l'étranger",
+            "with_aray_azemkhan": "avec Aray Azemkhan",
             "russian": "Russe",
             "english": "Anglais",
             "french": "Français",
-            "currency": "Devise",
+            
+            // Hero Section
+            "your_journey_to": "Votre voyage vers",
+            "world_class_education": "Une éducation de classe mondiale",
+            "hero_description": "Calculez les coûts personnalisés pour étudier à l'étranger et découvrez les opportunités dans les meilleures universités du monde. Commencez à planifier votre éducation internationale dès aujourd'hui.",
+            "universities_stat": "Universités",
+            "students_helped_stat": "Étudiants aidés",
+            "countries_stat": "Pays",
+            "success_rate_stat": "Taux de réussite",
+            
+            // Program Types
             "program_type": "Type de programme",
+            "select_desired_degree": "Sélectionnez votre niveau de diplôme souhaité",
             "foundation": "Programme préparatoire",
+            "foundation_description": "Programme préparatoire (1 an)",
             "bachelor": "Licence",
+            "bachelor_description": "Diplôme de premier cycle (3-4 ans)",
             "master": "Master",
-            "select_countries": "Sélectionnez les pays",
+            "master_description": "Diplôme d'études supérieures (1-2 ans)",
+            
+            // Country Selection
+            "select_countries": "Sélectionner les pays",
+            "choose_up_to_6_destinations": "Choisissez jusqu'à 6 destinations pour vos études",
+            "continent": "Continent",
+            "quality": "Qualité",
             "selected": "sélectionné(s)",
-            "number_of_universities": "Nombre d'universités",
-            "percentage_of_discount": "Pourcentage de réduction",
-            "selection_details": "Détails de la sélection",
-            "countries": "Pays",
-            "none": "Aucun",
-            "base_price": "Prix de base",
-            "special_price_for": "Prix spécial pour",
-            "universities": "Universités",
-            "per_university_price": "Prix par université",
-            "universities_total": "Total universités",
-            "subtotal": "Sous-total",
-            "discount": "Remise",
-            "total": "Total",
+            "maximum_reached": "Maximum atteint",
+            
+            // Continents
+            "Asia": "Asie",
+            "Europe": "Europe",
+            "North America": "Amérique du Nord",
+            "Middle East": "Moyen-Orient",
+            
+            // Countries
             "china": "Chine",
             "hong_kong": "Hong Kong",
             "italy": "Italie",
@@ -147,8 +275,49 @@ const resources = {
             "uae": "Émirats arabes unis",
             "qatar": "Qatar",
             "malaysia": "Malaisie",
+            
+            // University Selection
+            "number_of_universities": "Nombre d'universités",
+            "how_many_universities_apply": "À combien d'universités voulez-vous postuler ?",
+            "universities": "Universités",
+            "recommended_text": "Recommandé : Postulez à 5-8 universités pour les meilleures chances d'acceptation",
+            
+            // Discounts
+            "special_offers": "Offres spéciales",
+            "save_money_exclusive_discounts": "Économisez de l'argent avec nos remises exclusives",
+            "more_than_5_university": "Choisir plus de 5 universités",
             "fast_payment": "Payer en moins de 5 jours",
-            "duo_booking": "Réservation en duo (avec un ami)"
+            "fast_payment_eom": "Paiement rapide avant la fin du mois",
+            "testimony": "Autoriser à partager votre cas",
+            "duo_booking": "Réservation en duo (avec un ami)",
+            
+            // Price Breakdown
+            "cost_breakdown": "Répartition des coûts",
+            "detailed_pricing_education_plan": "Tarification détaillée pour votre plan d'éducation",
+            "program_type_label": "Type de programme",
+            "countries_selected": "Pays sélectionnés",
+            "universities_to_apply": "Universités à postuler",
+            "selected_countries": "Pays sélectionnés",
+            "university_applications": "Candidatures universitaires",
+            "per_application": "par candidature",
+            "subtotal": "Sous-total",
+            "discounts_applied": "Remises appliquées",
+            "total_savings": "Économies totales",
+            "total_cost": "Coût total",
+            "in_currency": "en",
+            "select_countries_to_see_pricing": "Sélectionnez les pays pour voir la tarification détaillée",
+            "choose_study_destinations": "Choisissez vos destinations d'études pour calculer les coûts",
+            
+            // Tiers
+            "standard": "standard",
+            "premium": "premium",
+            
+            // General
+            "currency": "Devise",
+            "language": "Langue",
+            "none": "Aucun",
+            "total": "Total",
+            "discount": "Remise"
         }
     }
 };

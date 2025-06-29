@@ -25,9 +25,9 @@ export const Header: React.FC<Props> = ({ lang, setLang, currency, setCurrency }
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-transparent">
-                                Study Abroad
+                                {t("study_abroad")}
                             </h1>
-                            <p className="text-sm text-gray-600 font-medium">with Aray Azemkhan</p>
+                            <p className="text-sm text-gray-600 font-medium">{t("with_aray_azemkhan")}</p>
                         </div>
                     </div>
                     

@@ -23,7 +23,7 @@ export const UniversitySlider: React.FC<Props> = ({
         // 2) update the count
         setUniversityCount(newCount)
 
-        // 3) toggle the “more_than_5_university” discount
+        // 3) toggle the "more_than_5_university" discount
         const TOGGLE_KEY = "more_than_5_university" as const
         const discountOption = DISCOUNT_OPTIONS.find(d => d.key === TOGGLE_KEY)
         if (!discountOption) return  // safety
@@ -31,11 +31,11 @@ export const UniversitySlider: React.FC<Props> = ({
         setSelectedDiscounts(prev => {
             const isActive = prev.some(d => d.key === TOGGLE_KEY)
 
-            // a) if we now have >5 unis, ensure it’s in the array
+            // a) if we now have >5 unis, ensure it's in the array
             if (newCount > 5 && !isActive) {
                 return [...prev, discountOption]
             }
-            // b) if we now have ≤5 unis, ensure it’s out of the array
+            // b) if we now have ≤5 unis, ensure it's out of the array
             if (newCount <= 5 && isActive) {
                 return prev.filter(d => d.key !== TOGGLE_KEY)
             }
@@ -52,13 +52,13 @@ export const UniversitySlider: React.FC<Props> = ({
                 </div>
                 <div>
                     <h3 className="text-xl font-semibold text-gray-900">{t("number_of_universities")}</h3>
-                    <p className="text-sm text-gray-600">How many universities do you want to apply to?</p>
+                    <p className="text-sm text-gray-600">{t("how_many_universities_apply")}</p>
                 </div>
             </div>
             
             <div className="bg-gray-50 rounded-xl p-6">
                 <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-medium text-gray-700">Universities</span>
+                    <span className="text-sm font-medium text-gray-700">{t("universities")}</span>
                     <div className="bg-purple-100 px-4 py-2 rounded-lg">
                         <span className="text-2xl font-bold text-purple-700">{universityCount}</span>
                     </div>
@@ -87,7 +87,7 @@ export const UniversitySlider: React.FC<Props> = ({
                 
                 <div className="mt-4 text-sm text-gray-600">
                     <p>
-                        <strong>Recommended:</strong> Apply to 5-8 universities for the best chances of acceptance
+                        <strong>{t("recommended_text")}</strong>
                     </p>
                 </div>
             </div>

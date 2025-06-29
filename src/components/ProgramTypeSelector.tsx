@@ -22,7 +22,7 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                 </div>
                 <div>
                     <h3 className="text-xl font-semibold text-gray-900">{t("program_type")}</h3>
-                    <p className="text-sm text-gray-600">Select your desired degree level</p>
+                    <p className="text-sm text-gray-600">{t("select_desired_degree")}</p>
                 </div>
             </div>
             
@@ -45,7 +45,7 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                         </div>
                         <div>
                             <div className="font-semibold text-gray-900">{t("foundation")}</div>
-                            <div className="text-sm text-gray-600">Preparatory program (1 year)</div>
+                            <div className="text-sm text-gray-600">{t("foundation_description")}</div>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                         </div>
                         <div>
                             <div className="font-semibold text-gray-900">{t("bachelor")}</div>
-                            <div className="text-sm text-gray-600">Undergraduate degree (3-4 years)</div>
+                            <div className="text-sm text-gray-600">{t("bachelor_description")}</div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export const ProgramTypeSelector: React.FC<Props> = ({
                         </div>
                         <div>
                             <div className="font-semibold text-gray-900">{t("master")}</div>
-                            <div className="text-sm text-gray-600">Graduate degree (1-2 years)</div>
+                            <div className="text-sm text-gray-600">{t("master_description")}</div>
                         </div>
                     </div>
                 </div>

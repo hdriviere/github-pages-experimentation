@@ -121,7 +121,7 @@ export const CountrySelector: React.FC<Props> = ({
                     </div>
                     <div>
                         <h3 className="text-xl font-semibold text-gray-900">{t("select_countries")}</h3>
-                        <p className="text-sm text-gray-600">Choose up to 6 destinations for your studies</p>
+                        <p className="text-sm text-gray-600">{t("choose_up_to_6_destinations")}</p>
                     </div>
                 </div>
                 
@@ -137,7 +137,7 @@ export const CountrySelector: React.FC<Props> = ({
                             }`}
                             onClick={() => setSortType("continent")}
                         >
-                            Continent
+                            {t("continent")}
                         </button>
                         <button
                             className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 ${
@@ -147,7 +147,7 @@ export const CountrySelector: React.FC<Props> = ({
                             }`}
                             onClick={() => setSortType("quality")}
                         >
-                            Quality
+                            {t("quality")}
                         </button>
                     </div>
                 </div>
@@ -159,7 +159,7 @@ export const CountrySelector: React.FC<Props> = ({
                     <div key={groupName}>
                         {sortType === "continent" && (
                             <h4 className="text-lg font-semibold text-gray-800 mb-3 border-b border-gray-200 pb-2">
-                                {groupName}
+                                {t(groupName)}
                             </h4>
                         )}
                         
@@ -206,7 +206,7 @@ export const CountrySelector: React.FC<Props> = ({
                     {selectedCountries.length} / 6 {t("selected")}
                 </span>
                 {selectedCountries.length === 6 && (
-                    <span className="text-blue-600 font-medium">Maximum reached</span>
+                    <span className="text-blue-600 font-medium">{t("maximum_reached")}</span>
                 )}
             </div>
         </div>

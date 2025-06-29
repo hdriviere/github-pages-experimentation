@@ -16,15 +16,14 @@ export const Hero: React.FC = () => {
             <div className="relative max-w-7xl mx-auto px-4 text-center">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                        Your Journey to
+                        {t("your_journey_to")}
                         <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent block">
-                            World-Class Education
+                            {t("world_class_education")}
                         </span>
                     </h1>
                     
                     <p className="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto">
-                        Calculate personalized costs for studying abroad and discover opportunities 
-                        at top universities worldwide. Start planning your international education today.
+                        {t("hero_description")}
                     </p>
                     
                     {/* Stats */}
@@ -33,7 +32,7 @@ export const Hero: React.FC = () => {
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <BookOpen className="w-8 h-8 text-blue-600 mx-auto mb-3" />
                                 <div className="text-2xl font-bold text-gray-900">150+</div>
-                                <div className="text-sm text-gray-600 font-medium">Universities</div>
+                                <div className="text-sm text-gray-600 font-medium">{t("universities_stat")}</div>
                             </div>
                         </div>
                         
@@ -41,7 +40,7 @@ export const Hero: React.FC = () => {
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <Users className="w-8 h-8 text-indigo-600 mx-auto mb-3" />
                                 <div className="text-2xl font-bold text-gray-900">1K+</div>
-                                <div className="text-sm text-gray-600 font-medium">Students Helped</div>
+                                <div className="text-sm text-gray-600 font-medium">{t("students_helped_stat")}</div>
                             </div>
                         </div>
                         
@@ -49,7 +48,7 @@ export const Hero: React.FC = () => {
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <Award className="w-8 h-8 text-purple-600 mx-auto mb-3" />
                                 <div className="text-2xl font-bold text-gray-900">18</div>
-                                <div className="text-sm text-gray-600 font-medium">Countries</div>
+                                <div className="text-sm text-gray-600 font-medium">{t("countries_stat")}</div>
                             </div>
                         </div>
                         
@@ -57,7 +56,7 @@ export const Hero: React.FC = () => {
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-3" />
                                 <div className="text-2xl font-bold text-gray-900">98%</div>
-                                <div className="text-sm text-gray-600 font-medium">Success Rate</div>
+                                <div className="text-sm text-gray-600 font-medium">{t("success_rate_stat")}</div>
                             </div>
                         </div>
                     </div>

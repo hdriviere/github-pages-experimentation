@@ -81,26 +81,26 @@ export const PriceBreakdown: React.FC<Props> = ({
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
                 <div className="flex items-center gap-3 mb-2">
                     <Calculator className="w-6 h-6" />
-                    <h3 className="text-xl font-semibold">Cost Breakdown</h3>
+                    <h3 className="text-xl font-semibold">{t("cost_breakdown")}</h3>
                 </div>
-                <p className="text-blue-100 text-sm">Detailed pricing for your education plan</p>
+                <p className="text-blue-100 text-sm">{t("detailed_pricing_education_plan")}</p>
             </div>
             
             <div className="p-6 space-y-6">
                 {/* Basic Selection Summary - Always Visible */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">Program Type</span>
+                        <span className="text-sm font-medium text-gray-600">{t("program_type_label")}</span>
                         <span className="font-semibold text-gray-900 capitalize">{t(programType)}</span>
                     </div>
                     
                     <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">Countries Selected</span>
+                        <span className="text-sm font-medium text-gray-600">{t("countries_selected")}</span>
                         <span className="font-semibold text-gray-900">{selectedCountries.length}</span>
                     </div>
                     
                     <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">Universities to Apply</span>
+                        <span className="text-sm font-medium text-gray-600">{t("universities_to_apply")}</span>
                         <span className="font-semibold text-gray-900">{universityCount}</span>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                         
                         {/* Selected Countries */}
                         <div className="space-y-4">
-                            <h4 className="font-medium text-gray-900">Selected Countries</h4>
+                            <h4 className="font-medium text-gray-900">{t("selected_countries")}</h4>
                             <div className="space-y-2">
                                 {selectedCountries.map((country) => (
                                     <div key={country.key} className="flex items-center justify-between text-sm">
@@ -121,7 +121,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                                             {t(country.name)}
                                         </span>
                                         <span className="text-gray-700 font-medium capitalize">
-                                            {country.tier}
+                                            {t(country.tier)}
                                         </span>
                                     </div>
                                 ))}
@@ -133,12 +133,12 @@ export const PriceBreakdown: React.FC<Props> = ({
                         {/* University Applications */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <span className="font-medium text-gray-900">University Applications</span>
+                                <span className="font-medium text-gray-900">{t("university_applications")}</span>
                                 <span className="font-semibold">{formatKZT(universitiesTotal)}</span>
                             </div>
                             
                             <div className="ml-4 text-sm text-gray-600">
-                                {universityCount} × {formatKZT(pricePerUniversity)} per application
+                                {universityCount} × {formatKZT(pricePerUniversity)} {t("per_application")}
                             </div>
                         </div>
                         
@@ -146,7 +146,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                         
                         {/* Subtotal */}
                         <div className="flex items-center justify-between text-lg">
-                            <span className="font-semibold text-gray-900">Subtotal</span>
+                            <span className="font-semibold text-gray-900">{t("subtotal")}</span>
                             <span className="font-bold">{formatKZT(totalKZT)}</span>
                         </div>
                         
@@ -155,10 +155,10 @@ export const PriceBreakdown: React.FC<Props> = ({
                             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                                 <div className="flex items-center gap-2 mb-2">
                                     <TrendingDown className="w-5 h-5 text-green-600" />
-                                    <span className="font-medium text-green-800">Discounts Applied</span>
+                                    <span className="font-medium text-green-800">{t("discounts_applied")}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-green-700">Total Savings ({discountPercentage}%)</span>
+                                    <span className="text-green-700">{t("total_savings")} ({discountPercentage}%)</span>
                                     <span className="font-semibold text-green-700">
                                         -{formatCurrency((totalKZT * currency.rate * discountPercentage) / 100, currency)}
                                     </span>
@@ -170,8 +170,8 @@ export const PriceBreakdown: React.FC<Props> = ({
                         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <span className="text-lg font-bold text-gray-900">Total Cost</span>
-                                    <span className="text-sm text-gray-600 ml-2">in {currency.code}</span>
+                                    <span className="text-lg font-bold text-gray-900">{t("total_cost")}</span>
+                                    <span className="text-sm text-gray-600 ml-2">{t("in_currency")} {currency.code}</span>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-2xl font-bold text-blue-700">
@@ -194,8 +194,8 @@ export const PriceBreakdown: React.FC<Props> = ({
                         <div className="text-gray-400 mb-2">
                             <Calculator className="w-12 h-12 mx-auto" />
                         </div>
-                        <p className="text-gray-500 font-medium">Select countries to see detailed pricing</p>
-                        <p className="text-sm text-gray-400 mt-1">Choose your study destinations to calculate costs</p>
+                        <p className="text-gray-500 font-medium">{t("select_countries_to_see_pricing")}</p>
+                        <p className="text-sm text-gray-400 mt-1">{t("choose_study_destinations")}</p>
                     </div>
                 )}
             </div>

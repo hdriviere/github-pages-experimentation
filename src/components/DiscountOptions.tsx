@@ -37,69 +37,74 @@ export const DiscountOptions: React.FC<Props> = ({
         }
     };
 
-    const foo = (discount: Discount) => {
+    const renderDiscountOption = (discount: Discount) => {
         const isSelected = selectedDiscounts.includes(discount);
+        
         if(discount.selectable) {
-            return (<div
-                key={discount.key}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
-                    isSelected
-                        ? "border-green-500 bg-green-50 shadow-md"
-                        : "border-gray-200 bg-white hover:border-green-300 hover:shadow-md"
-                }`}
-                onClick={() => handleChange(discount)}
-            >
-                <div className="flex items-center gap-4">
-                    <div className={`p-2 rounded-lg ${
-                        isSelected ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600 group-hover:bg-green-100 group-hover:text-green-600"
-                    }`}>
-                        {getIcon(discount.key)}
-                    </div>
-
-                    <div className="flex-1">
-                        <div className="font-medium text-gray-900">{t(discount.key)}</div>
-                    </div>
-
-                    <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+            return (
+                <div
+                    key={discount.key}
+                    className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                         isSelected
-                            ? "bg-green-500 text-white"
-                            : "bg-green-100 text-green-700"
-                    }`}>
-                        -{discount.value}%
+                            ? "border-green-500 bg-green-50 shadow-md"
+                            : "border-gray-200 bg-white hover:border-green-300 hover:shadow-md"
+                    }`}
+                    onClick={() => handleChange(discount)}
+                >
+                    <div className="flex items-center gap-4">
+                        <div className={`p-2 rounded-lg ${
+                            isSelected ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600 group-hover:bg-green-100 group-hover:text-green-600"
+                        }`}>
+                            {getIcon(discount.key)}
+                        </div>
+
+                        <div className="flex-1">
+                            <div className="font-medium text-gray-900">{t(discount.key)}</div>
+                        </div>
+
+                        <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                            isSelected
+                                ? "bg-green-500 text-white"
+                                : "bg-green-100 text-green-700"
+                        }`}>
+                            -{discount.value}%
+                        </div>
                     </div>
                 </div>
-            </div>)
+            );
         } else {
-            return(<div
-                key={discount.key}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-default group ${
-                    isSelected
-                        ? "border-green-500 bg-green-50 shadow-md"
-                        : "border-gray-200 bg-white"
-                }`}
-            >
-                <div className="flex items-center gap-4">
-                    <div className={`p-2 rounded-lg ${
-                        isSelected ? "bg-green-500 text-white" : "bg-gray-200 text-gray-500"
-                    }`}>
-                        {getIcon(discount.key)}
-                    </div>
-
-                    <div className="flex-1">
-                        <div className="font-medium text-gray-900">{t(discount.key)}</div>
-                    </div>
-
-                    <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+            return (
+                <div
+                    key={discount.key}
+                    className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-default group ${
                         isSelected
-                            ? "bg-green-500 text-white"
-                            : "bg-green-100 text-green-700"
-                    }`}>
-                        -{discount.value}%
+                            ? "border-green-500 bg-green-50 shadow-md"
+                            : "border-gray-200 bg-white"
+                    }`}
+                >
+                    <div className="flex items-center gap-4">
+                        <div className={`p-2 rounded-lg ${
+                            isSelected ? "bg-green-500 text-white" : "bg-gray-200 text-gray-500"
+                        }`}>
+                            {getIcon(discount.key)}
+                        </div>
+
+                        <div className="flex-1">
+                            <div className="font-medium text-gray-900">{t(discount.key)}</div>
+                        </div>
+
+                        <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                            isSelected
+                                ? "bg-green-500 text-white"
+                                : "bg-green-100 text-green-700"
+                        }`}>
+                            -{discount.value}%
+                        </div>
                     </div>
                 </div>
-            </div>)
+            );
         }
-    }
+    };
 
     return (
         <div className="space-y-6">
@@ -108,13 +113,13 @@ export const DiscountOptions: React.FC<Props> = ({
                     <Tag className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                    <h3 className="text-xl font-semibold text-gray-900">Special Offers</h3>
-                    <p className="text-sm text-gray-600">Save money with our exclusive discounts</p>
+                    <h3 className="text-xl font-semibold text-gray-900">{t("special_offers")}</h3>
+                    <p className="text-sm text-gray-600">{t("save_money_exclusive_discounts")}</p>
                 </div>
             </div>
             
             <div className="space-y-3">
-                {DISCOUNT_OPTIONS.map((discount) => { return (foo(discount)); })}
+                {DISCOUNT_OPTIONS.map((discount) => renderDiscountOption(discount))}
             </div>
         </div>
     );
