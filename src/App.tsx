@@ -120,11 +120,8 @@ const App: React.FC = () => {
                                 <PriceBreakdown
                                     selectedCountries={selectedCountries}
                                     programType={programType}
-                                    basePrice={basePrice}
-                                    basePriceBreakdown={basePriceBreakdown}
-                                    perUnivPrice={perUnivPrice}
                                     universityCount={universityCount}
-                                    universitiesTotal={universitiesTotal}
+                                    pricePerUniversity={pricePerUniversity}
                                     totalKZT={totalKZT}
                                     discountPercentage={discountPercentage}
                                     discountedTotal={discountedTotal}
