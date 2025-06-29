@@ -76,7 +76,7 @@ export const PER_UNIVERSITY_PRICES: {
             bachelor: 220_000,
             master: 230_000,
     },
-    uk: {
+    gb: {
         foundation: 270_000,
             bachelor: 270_000,
             master: 260_000,
