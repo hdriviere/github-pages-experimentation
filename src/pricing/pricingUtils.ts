@@ -1,5 +1,5 @@
 import {PER_UNIVERSITY_PRICES, PER_PACKAGE_PRICES, premiumCountries} from "./pricingData";
-import {Country, ProgramType} from "../types";
+import {Country, ProgramType, PackageType} from "../types";
 
 export function getPricePerUniversity(
     selected: Country[],
