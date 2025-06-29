@@ -15,9 +15,9 @@ export function getPricePerUniversity(
         const selectedCountriesCount: number = selected.length
 
         if (isPackagePremium) {
-            return getPackagePrice('premium', selectedCountriesCount)
+            return getPackagePrice(premium, selectedCountriesCount)
         } else {
-            return getPackagePrice('standard', selectedCountriesCount)
+            return getPackagePrice(standard, selectedCountriesCount)
         }
     }
 }
