@@ -1,7 +1,7 @@
 import React from "react";
 import { Country, ProgramType, Currency } from "../types";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingDown } from "lucide-react";
+import { Calculator, TrendingDown, GraduationCap, MapPin, Building2 } from "lucide-react";
 
 type Props = {
     selectedCountries: Country[];
@@ -87,21 +87,30 @@ export const PriceBreakdown: React.FC<Props> = ({
             </div>
             
             <div className="p-6 space-y-6">
-                {/* Basic Selection Summary - Always Visible */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">{t("program_type_label")}</span>
-                        <span className="font-semibold text-gray-900 capitalize">{t(programType)}</span>
+                {/* Basic Selection Summary - Horizontal with Icons */}
+                <div className="grid grid-cols-3 gap-4">
+                    {/* Program Type */}
+                    <div className="text-center">
+                        <div className="bg-indigo-100 p-3 rounded-lg mx-auto w-fit mb-2">
+                            <GraduationCap className="w-5 h-5 text-indigo-600" />
+                        </div>
+                        <div className="font-semibold text-gray-900 text-sm capitalize">{t(programType)}</div>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">{t("countries_selected")}</span>
-                        <span className="font-semibold text-gray-900">{selectedCountries.length}</span>
+                    {/* Countries Selected */}
+                    <div className="text-center">
+                        <div className="bg-blue-100 p-3 rounded-lg mx-auto w-fit mb-2">
+                            <MapPin className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div className="font-semibold text-gray-900 text-sm">{selectedCountries.length}</div>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">{t("universities_to_apply")}</span>
-                        <span className="font-semibold text-gray-900">{universityCount}</span>
+                    {/* Universities */}
+                    <div className="text-center">
+                        <div className="bg-purple-100 p-3 rounded-lg mx-auto w-fit mb-2">
+                            <Building2 className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div className="font-semibold text-gray-900 text-sm">{universityCount}</div>
                     </div>
                 </div>
                 
