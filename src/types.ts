@@ -3,6 +3,7 @@ export type Country = {
     name: string;
     label: string;
     flag: string;
+    tier: PackageTier;
 };
 
 export type Currency = {
@@ -29,5 +30,7 @@ export type BasePriceBreakdown = {
     total: number;
     items: BasePriceBreakdownItem[];
 };
+
+export type PackageTier = 'standard' | 'premium'
 
 export type ProgramType = "foundation" | "bachelor" | "master";

@@ -7,15 +7,11 @@ import { ProgramTypeSelector } from "./components/ProgramTypeSelector";
 import { UniversitySlider } from "./components/UniversitySlider";
 import { PriceBreakdown } from "./components/PriceBreakdown";
 import { DiscountOptions } from "./components/DiscountOptions";
-import { Footer } from "./components/Footer";
-import {
-    newGetBasePrice,
-    getPerUniversityPrice,
-} from "./pricing/pricingUtils";
 import { getQueryParams, setQueryParams } from "./hooks/useUrlSync";
 import {COUNTRIES, CURRENCIES, DISCOUNT_OPTIONS} from "./pricing/pricingData";
 import { Country, Currency, ProgramType, Discount } from "./types";
 import "./i18n";
+import {getPricePerUniversity} from "./pricing/pricingUtils.ts";
 
 const App: React.FC = () => {
     const { i18n } = useTranslation();
@@ -62,19 +58,12 @@ const App: React.FC = () => {
         }
     }, [lang, i18n]);
 
-    const selectedKeys = selectedCountries.map((c) => c.key);
-    const { total: basePrice, items: basePriceBreakdown } = newGetBasePrice(
+    const pricePerUniversity = getPricePerUniversity(
         selectedCountries,
         programType
     );
-    const { price: perUnivPrice, comboKey: perUnivCombo } = getPerUniversityPrice(
-        selectedKeys,
-        universityCount,
-        programType
-    );
 
-    const universitiesTotal = perUnivPrice * universityCount;
-    const totalKZT = basePrice + universitiesTotal;
+    const totalKZT = pricePerUniversity * universityCount;
     const total = totalKZT * currency.rate;
     const discountPercentage = DISCOUNT_OPTIONS
         .filter((opt) => selectedDiscounts.includes(opt))
@@ -134,7 +123,6 @@ const App: React.FC = () => {
                                     basePrice={basePrice}
                                     basePriceBreakdown={basePriceBreakdown}
                                     perUnivPrice={perUnivPrice}
-                                    perUnivCombo={perUnivCombo}
                                     universityCount={universityCount}
                                     universitiesTotal={universitiesTotal}
                                     totalKZT={totalKZT}
