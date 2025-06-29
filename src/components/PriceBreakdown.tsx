@@ -110,16 +110,16 @@ export const PriceBreakdown: React.FC<Props> = ({
                     <>
                         <hr className="border-gray-200" />
                         
-                        {/* Selected Countries as Compact Single-Line Tags */}
+                        {/* Selected Countries as Small Tag Tiles */}
                         <div className="space-y-3">
                             <h4 className="font-medium text-gray-900">{t("selected_countries")}</h4>
-                            <div className="flex gap-1 overflow-x-auto scrollbar-hide">
+                            <div className="flex flex-wrap gap-1.5">
                                 {selectedCountries.map((country) => (
                                     <div 
                                         key={country.key} 
-                                        className="flex-shrink-0 inline-flex items-center gap-1 bg-gray-50 border border-gray-200 rounded px-1.5 py-0.5 text-xs whitespace-nowrap"
+                                        className="inline-flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-md px-2 py-1 text-xs"
                                     >
-                                        <span className="text-xs">{country.flag}</span>
+                                        <span className="text-sm">{country.flag}</span>
                                         <span className="font-medium text-gray-700">{t(country.name)}</span>
                                     </div>
                                 ))}
