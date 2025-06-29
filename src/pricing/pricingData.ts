@@ -33,8 +33,8 @@ export const CURRENCIES: Currency[] = [
 
 export const DISCOUNT_OPTIONS: Discount[] = [
     { key: "more_than_5_university", label: "More than 5 university", value: 15, selectable: false },
-    { key: "fast_payment", label: "Pay in less than 5 days", value: 7, selectable: true },
-    { key: "fast_payment_eom", label: "Pay before end of month", value: 5, selectable: true  },
+    { key: "fast_payment", label: "Pay in less than 5 days", value: 2, selectable: true },
+    { key: "testimony", label: "Allow to share about there case", value: 3, selectable: true  },
     { key: "duo_booking", label: "Booking as a duo (with a friend)", value: 10, selectable: true },
 ];
 

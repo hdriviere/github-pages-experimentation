@@ -48,7 +48,6 @@ const resources = {
             "qatar": "Катар",
             "malaysia": "Малайзия",
             "fast_payment": "Оплата менее чем за 5 дней",
-            "fast_payment_eom": "Оплатить до конца месяца",
             "duo_booking": "Бронирование вдвоём (с другом)"
         }
     },
@@ -97,8 +96,9 @@ const resources = {
             "uae": "UAE",
             "qatar": "Qatar",
             "malaysia": "Malaysia",
+            "more_than_5_university": "Choose more than 5 university",
             "fast_payment": "Pay in less than 5 days",
-            "fast_payment_eom": "Pay before end of month",
+            "testimony": "Allow to share about there case",
             "duo_booking": "Booking as a duo (with a friend)"
         }
     },
@@ -148,7 +148,6 @@ const resources = {
             "qatar": "Qatar",
             "malaysia": "Malaisie",
             "fast_payment": "Payer en moins de 5 jours",
-            "fast_payment_eom": "Payer avant la fin du mois",
             "duo_booking": "Réservation en duo (avec un ami)"
         }
     }
