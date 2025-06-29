@@ -105,6 +105,7 @@ const App: React.FC = () => {
                                     <UniversitySlider
                                         universityCount={universityCount}
                                         setUniversityCount={setUniversityCount}
+                                        setSelectedDiscounts={setSelectedDiscounts}
                                     />
                                     <DiscountOptions
                                         selectedDiscounts={selectedDiscounts}
