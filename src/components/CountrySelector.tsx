@@ -41,18 +41,18 @@ const QUALITY_RANKING: Record<string, number> = {
     de: 4,
     nl: 5,
     fr: 6,
-    at: 7,
-    be: 8,
-    it: 9,
-    es: 10,
+    kr: 7,
+    cn: 8,
+    be: 9,
+    at: 10,
     hk: 11,
-    kr: 12,
-    cn: 13,
-    ae: 14,
-    qa: 15,
-    my: 16,
-    hu: 17,
-    pl: 18
+    ae: 12,
+    qa: 13,
+    it: 14,
+    es: 15,
+    hu: 16,
+    pl: 17,
+    my: 18
 };
 
 export const CountrySelector: React.FC<Props> = ({
