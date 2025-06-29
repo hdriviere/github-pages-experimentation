@@ -110,17 +110,22 @@ export const PriceBreakdown: React.FC<Props> = ({
                     <>
                         <hr className="border-gray-200" />
                         
-                        {/* Selected Countries */}
-                        <div className="space-y-4">
+                        {/* Selected Countries as Tag Tiles */}
+                        <div className="space-y-3">
                             <h4 className="font-medium text-gray-900">{t("selected_countries")}</h4>
-                            <div className="space-y-2">
+                            <div className="flex flex-wrap gap-2">
                                 {selectedCountries.map((country) => (
-                                    <div key={country.key} className="flex items-center justify-between text-sm">
-                                        <span className="text-gray-600 flex items-center gap-2">
-                                            <span className="text-base">{country.flag}</span>
-                                            {t(country.name)}
-                                        </span>
-                                        <span className="text-gray-700 font-medium capitalize">
+                                    <div 
+                                        key={country.key} 
+                                        className="inline-flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                                    >
+                                        <span className="text-base">{country.flag}</span>
+                                        <span className="font-medium text-gray-700">{t(country.name)}</span>
+                                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                            country.tier === 'premium' 
+                                                ? 'bg-purple-100 text-purple-700' 
+                                                : 'bg-blue-100 text-blue-700'
+                                        }`}>
                                             {t(country.tier)}
                                         </span>
                                     </div>
