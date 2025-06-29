@@ -23,7 +23,7 @@ const resources = {
             // Program Types
             "program_type": "Тип программы",
             "select_desired_degree": "Выберите желаемый уровень степени",
-            "foundation": "Подготовительная программа",
+            "foundation": "Фаундейшн",
             "foundation_description": "Подготовительная программа (1 год)",
             "bachelor": "Бакалавриат",
             "bachelor_description": "Степень бакалавра (3-4 года)",
@@ -66,8 +66,8 @@ const resources = {
             
             // University Selection
             "number_of_universities": "Количество университетов",
-            "how_many_universities_apply": "В сколько университетов вы хотите подать заявление?",
-            "universities": "Университетов",
+            "how_many_universities_apply": "Сколько университетов желаете охватить?",
+            "universities": "Университеты",
             "recommended_text": "Рекомендуется: Подавайте заявления в 5-8 университетов для лучших шансов на поступление",
             
             // Discounts
@@ -81,17 +81,17 @@ const resources = {
             
             // Price Breakdown
             "cost_breakdown": "Разбивка стоимости",
-            "detailed_pricing_education_plan": "Подробная стоимость вашего плана образования",
+            "detailed_pricing_education_plan": "Стоимость полного сопровождения",
             "program_type_label": "Тип программы",
             "countries_selected": "Выбрано стран",
             "universities_to_apply": "Университетов для подачи заявлений",
             "selected_countries": "Выбранные страны",
-            "university_applications": "Заявления в университеты",
-            "per_application": "за заявление",
-            "subtotal": "Промежуточный итог",
-            "discounts_applied": "Применённые скидки",
+            "university_applications": "Подачи в университеты",
+            "per_application": "за подачу",
+            "subtotal": "Общая цена",
+            "discounts_applied": "Спец. условия",
             "total_savings": "Общая экономия",
-            "total_cost": "Общая стоимость",
+            "total_cost": "Итого",
             "in_currency": "в",
             "select_countries_to_see_pricing": "Выберите страны, чтобы увидеть подробную стоимость",
             "choose_study_destinations": "Выберите направления для обучения, чтобы рассчитать стоимость",
