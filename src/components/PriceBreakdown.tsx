@@ -121,13 +121,6 @@ export const PriceBreakdown: React.FC<Props> = ({
                                     >
                                         <span className="text-base">{country.flag}</span>
                                         <span className="font-medium text-gray-700">{t(country.name)}</span>
-                                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                            country.tier === 'premium' 
-                                                ? 'bg-purple-100 text-purple-700' 
-                                                : 'bg-blue-100 text-blue-700'
-                                        }`}>
-                                            {t(country.tier)}
-                                        </span>
                                     </div>
                                 ))}
                             </div>
