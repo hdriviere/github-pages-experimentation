@@ -1,4 +1,4 @@
-import {PER_UNIVERSITY_PRICES, PER_PACKAGE_PRICES, premiumCountries} from "./pricingData";
+import {PER_UNIVERSITY_PRICES, PER_PACKAGE_PRICES, premiumCountries, getPackagePrice} from "./pricingData";
 import {Country, ProgramType, PackageType} from "../types";
 
 export function getPricePerUniversity(
@@ -11,13 +11,13 @@ export function getPricePerUniversity(
         return PER_UNIVERSITY_PRICES[onlySelectedCountry.key][program]
     } else {
         // Selection is a package
-        const isPackagePremium = selected.map(c => premiumCountries.includes(c))
+        const isPackagePremium = selected.some(c => premiumCountries.includes(c.key))
         const selectedCountriesCount: number = selected.length
 
         if (isPackagePremium) {
-            return getPackagePrice(premium, selectedCountriesCount)
+            return getPackagePrice('premium', selectedCountriesCount)
         } else {
-            return getPackagePrice(standard, selectedCountriesCount)
+            return getPackagePrice('standard', selectedCountriesCount)
         }
     }
 }
