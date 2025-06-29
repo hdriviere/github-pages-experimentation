@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
                         <div className="text-center">
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
                                 <Award className="w-8 h-8 text-purple-600 mx-auto mb-3" />
-                                <div className="text-2xl font-bold text-gray-900">6</div>
+                                <div className="text-2xl font-bold text-gray-900">18</div>
                                 <div className="text-sm text-gray-600 font-medium">Countries</div>
                             </div>
                         </div>
