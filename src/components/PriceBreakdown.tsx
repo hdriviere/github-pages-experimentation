@@ -1,16 +1,18 @@
 import React from "react";
-import { Country, ProgramType, Currency } from "../types";
+import {CountryData, ProgramType, Currency, PaymentType} from "../types";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingDown, GraduationCap, MapPin, Building2 } from "lucide-react";
+import {Calculator, TrendingDown, GraduationCap, MapPin, Building2, TrendingUp} from "lucide-react";
 
 type Props = {
-    selectedCountries: Country[];
+    selectedCountries: CountryData[];
     programType: ProgramType;
+    paymentType: PaymentType;
     universityCount: number;
     pricePerUniversity: number;
     totalKZT: number;
     discountPercentage: number;
-    discountedTotal: number;
+    surchargePercentage: number;
+    discountedAndSurchargedTotal: number;
     currency: Currency;
 };
 
@@ -19,6 +21,13 @@ function formatKZT(value: number): string {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(value) + " ₸";
+}
+
+function formatRUB(value: number): string {
+    return new Intl.NumberFormat("ru-RU", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(value) + " ₽";
 }
 
 function formatUSD(value: number): string {
@@ -46,6 +55,8 @@ function formatCurrency(value: number, currency: Currency): string {
     switch (currency.code) {
         case "KZT":
             return formatKZT(value);
+        case "RUB":
+            return formatRUB(value);
         case "USD":
             return formatUSD(value);
         case "EUR":
@@ -63,18 +74,20 @@ function formatCurrency(value: number, currency: Currency): string {
 export const PriceBreakdown: React.FC<Props> = ({
     selectedCountries,
     programType,
+    paymentType,
     universityCount,
     pricePerUniversity,
     totalKZT,
     discountPercentage,
-    discountedTotal,
+    surchargePercentage,
+                                                    discountedAndSurchargedTotal,
     currency,
 }) => {
     const { t } = useTranslation();
     
     const hasCountriesSelected = selectedCountries.length > 0;
     const universitiesTotal = pricePerUniversity * universityCount;
-    
+
     return (
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
             {/* Header */}
@@ -156,7 +169,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                             <span className="font-semibold text-gray-900">{t("subtotal")}</span>
                             <span className="font-bold">{formatKZT(totalKZT)}</span>
                         </div>
-                        
+
                         {/* Discounts - Single Line */}
                         {discountPercentage > 0 && (
                             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -168,30 +181,109 @@ export const PriceBreakdown: React.FC<Props> = ({
                                         </span>
                                     </div>
                                     <span className="font-semibold text-green-700">
-                                        -{formatCurrency((totalKZT * currency.rate * discountPercentage) / 100, currency)}
+                                        -{formatKZT((totalKZT * currency.rate * discountPercentage) / 100)}
                                     </span>
                                 </div>
                             </div>
                         )}
-                        
-                        {/* Final Total */}
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <span className="text-lg font-bold text-gray-900">{t("total_cost")}</span>
-                                    <span className="text-sm text-gray-600 ml-2">{t("in_currency")} {currency.code}</span>
-                                </div>
-                                <div className="text-right">
-                                    <div className="text-2xl font-bold text-blue-700">
-                                        {formatCurrency(discountedTotal, currency)}
+
+                        {/* Service Fee - Single Line */}
+                        {surchargePercentage > 0 && (
+                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <TrendingUp className="w-5 h-5 text-amber-600"/>
+                                        <span className="font-medium text-amber-800">
+                                            {t("service_fee_applied")} ({surchargePercentage}%)
+                                        </span>
                                     </div>
-                                    {currency.code !== "KZT" && (
-                                        <div className="text-sm text-gray-600">
-                                            ≈ {formatKZT(totalKZT * (1 - discountPercentage / 100))}
-                                        </div>
-                                    )}
+                                    <span className="font-semibold text-amber-700">
+                                        +{formatKZT((totalKZT * currency.rate * surchargePercentage) / 100)}
+                                    </span>
                                 </div>
                             </div>
+                        )}
+
+                        {/* Final Total / Payment Summary */}
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50
+                border border-blue-200 rounded-lg p-6">
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                                {t("payment_summary")}
+                            </h4>
+
+                            <div className="divide-y divide-gray-200 space-y-4">
+                                {/* 1) Up-front */}
+                                {paymentType === "upfront_payment" && (
+                                    <div className="grid grid-cols-2 items-center py-2">
+                                        <span className="text-gray-700">{t("pay_in_full")}</span>
+                                        <span className="text-2xl font-bold text-blue-700 text-right">
+          {formatCurrency(discountedAndSurchargedTotal, currency)}
+        </span>
+                                    </div>
+                                )}
+
+                                {/* 2) Company (2×50%) */}
+                                {paymentType === "company_installment" && (
+                                    <>
+                                        <div className="grid grid-cols-2 items-center py-2">
+          <span className="text-gray-700">
+            {t("due_at_signing", {percent: 50})}
+          </span>
+                                            <span className="text-lg font-semibold text-blue-700 text-right">
+            {formatCurrency(discountedAndSurchargedTotal * 0.5, currency)}
+          </span>
+                                        </div>
+                                        <div className="grid grid-cols-2 items-center py-2">
+          <span className="text-gray-700">
+            {t("due_in_3_months", {percent: 50})}
+          </span>
+                                            <span className="text-lg font-semibold text-blue-700 text-right">
+            {formatCurrency(discountedAndSurchargedTotal * 0.5, currency)}
+          </span>
+                                        </div>
+                                    </>
+                                )}
+
+                                {/* 3) Bank Installments (12 or 24) */}
+                                {(paymentType === "12_months_bank_installment" ||
+                                    paymentType === "24_months_bank_installment") && (() => {
+                                    const months =
+                                        paymentType === "12_months_bank_installment" ? 12 : 24;
+                                    const monthly = discountedAndSurchargedTotal / months;
+
+                                    return (
+                                        <>
+                                            <div className="grid grid-cols-2 items-center py-2">
+                                                <span className="text-gray-700">{t("total_amount")}</span>
+                                                <span className="text-2xl font-bold text-blue-700 text-right">
+              {formatCurrency(discountedAndSurchargedTotal, currency)}
+            </span>
+                                            </div>
+                                            <div className="grid grid-cols-2 items-center py-2">
+            <span className="text-gray-700">
+              {t("monthly_payment", {count: months})}
+            </span>
+                                                <span className="text-lg font-semibold text-blue-700 text-right">
+              {formatCurrency(monthly, currency)}
+            </span>
+                                            </div>
+                                        </>
+                                    );
+                                })()}
+                            </div>
+
+                            {/* Approx. KZT for non-KZT currencies */}
+                            {currency.code !== "KZT" && (
+                                <div className="mt-4 text-sm text-gray-500">
+                                    {t("approx_in_kzt")}:{" "}
+                                    {formatKZT(
+                                        totalKZT *
+                                        (1 -
+                                            discountPercentage / 100 +
+                                            surchargePercentage / 100)
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </>
                 )}

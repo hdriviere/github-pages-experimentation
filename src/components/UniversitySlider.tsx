@@ -1,47 +1,21 @@
 import React, {ChangeEvent} from "react";
 import { useTranslation } from "react-i18next";
 import { Building2 } from "lucide-react";
-import {Discount} from "../types.ts";
-import {DISCOUNT_OPTIONS} from "../pricing/pricingData.ts";
 
 type Props = {
     universityCount: number;
     setUniversityCount: (count: number) => void;
-    setSelectedDiscounts: React.Dispatch<React.SetStateAction<Discount[]>>;
 };
 
 export const UniversitySlider: React.FC<Props> = ({
     universityCount,
     setUniversityCount,
-    setSelectedDiscounts,
 }) => {
     const { t } = useTranslation();
 
     const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // 1) parse the new slider value once
         const newCount = Number(e.target.value)
-        // 2) update the count
         setUniversityCount(newCount)
-
-        // 3) toggle the "more_than_5_university" discount
-        const TOGGLE_KEY = "more_than_5_university" as const
-        const discountOption = DISCOUNT_OPTIONS.find(d => d.key === TOGGLE_KEY)
-        if (!discountOption) return  // safety
-
-        setSelectedDiscounts(prev => {
-            const isActive = prev.some(d => d.key === TOGGLE_KEY)
-
-            // a) if we now have >5 unis, ensure it's in the array
-            if (newCount > 5 && !isActive) {
-                return [...prev, discountOption]
-            }
-            // b) if we now have ≤5 unis, ensure it's out of the array
-            if (newCount <= 5 && isActive) {
-                return prev.filter(d => d.key !== TOGGLE_KEY)
-            }
-            // c) otherwise, no change
-            return prev
-        })
     }
 
     return (

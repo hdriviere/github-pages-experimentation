@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { Country } from "../types";
+import { CountryData } from "../types";
 import { COUNTRIES } from "../pricing/pricingData";
 import { useTranslation } from "react-i18next";
 import { MapPin, ArrowUpDown } from "lucide-react";
 
 type Props = {
-    selectedCountries: Country[];
-    setSelectedCountries: React.Dispatch<React.SetStateAction<Country[]>>;
+    selectedCountries: CountryData[];
+    setSelectedCountries: React.Dispatch<React.SetStateAction<CountryData[]>>;
 };
 
 type SortType = "continent" | "quality";
@@ -62,7 +62,7 @@ export const CountrySelector: React.FC<Props> = ({
     const { t } = useTranslation();
     const [sortType, setSortType] = useState<SortType>("continent");
 
-    const handleCountryChange = (country: Country) => {
+    const handleCountryChange = (country: CountryData) => {
         setSelectedCountries((prev) =>
             prev.some((c) => c.key === country.key)
                 ? prev.filter((c) => c.key !== country.key)
@@ -99,7 +99,7 @@ export const CountrySelector: React.FC<Props> = ({
 
     const groupedCountries = useMemo(() => {
         if (sortType === "continent") {
-            const groups: Record<string, Country[]> = {};
+            const groups: Record<string, CountryData[]> = {};
             sortedCountries.forEach(country => {
                 const continent = CONTINENT_MAP[country.key] || "Other";
                 if (!groups[continent]) {

@@ -8,10 +8,19 @@ import { UniversitySlider } from "./components/UniversitySlider";
 import { PriceBreakdown } from "./components/PriceBreakdown";
 import { DiscountOptions } from "./components/DiscountOptions";
 import { getQueryParams, setQueryParams } from "./hooks/useUrlSync";
-import {COUNTRIES, CURRENCIES, DISCOUNT_OPTIONS} from "./pricing/pricingData";
-import { Country, Currency, ProgramType, Discount } from "./types";
+import {COUNTRIES, CURRENCIES, DISCOUNT_OPTIONS, SURCHARGE_OPTIONS} from "./pricing/pricingData";
+import {
+    CountryData,
+    Currency,
+    ProgramType,
+    Discount,
+    UniversityCount,
+    Country,
+    PaymentType, Surcharge
+} from "./types";
 import "./i18n";
-import {getPricePerUniversity} from "./pricing/pricingUtils.ts";
+import {newGetPricePerUniversity} from "./pricing/pricingUtils.ts";
+import {PaymentTypeSelector} from "./components/PaymentTypeSelector.tsx";
 
 const App: React.FC = () => {
     const { i18n } = useTranslation();
@@ -19,19 +28,38 @@ const App: React.FC = () => {
     // --- INITIAL STATE FROM URL ---
     const initialParams = getQueryParams();
 
-    const [selectedCountries, setSelectedCountries] = useState<Country[]>(
+    const [selectedCountries, setSelectedCountries] = useState<CountryData[]>(
         COUNTRIES.filter((c) => initialParams.countries.includes(c.key))
     );
     const [universityCount, setUniversityCount] = useState<number>(initialParams.universities);
-    const [selectedDiscounts, setSelectedDiscounts] = useState<Discount[]>(
-        DISCOUNT_OPTIONS.filter((c) => initialParams.discounts.includes(c.key))
-    );
+
     const [currency, setCurrency] = useState<Currency>(
         CURRENCIES.find((c) => c.code === initialParams.currency) || CURRENCIES[0]
     );
     const [programType, setProgramType] = useState<ProgramType>(
-        initialParams.program === "master" ? "master" : "bachelor"
+        initialParams.program === "master" ? "master" : initialParams.program === "bachelor" ? "bachelor" : "foundation"
     );
+    const [paymentType, setPaymentType] = useState<PaymentType>(initialParams.payment === 'company_installment' ? 'company_installment' : initialParams.payment === '12_months_bank_installment' ? '12_months_bank_installment' : initialParams.payment === '24_months_bank_installment' ? '24_months_bank_installment': 'upfront_payment');
+
+    const [selectedDiscounts, setSelectedDiscounts] = useState<Discount[]>(() => {
+        // 1) start with whatever the URL told you
+        const init = Object.values(DISCOUNT_OPTIONS).filter(d =>
+            initialParams.discounts.includes(d.key)
+        );
+        // 2) if we're in upfront mode, ensure upfront_payment is in there
+        if (paymentType === "upfront_payment") {
+            const onePay = DISCOUNT_OPTIONS.upfront_payment;
+            if (!init.some(d => d.key === onePay.key)) {
+                init.push(onePay);
+            }
+        }
+        return init;
+    });
+
+    const [selectedSurcharges, setSelectedSurcharges] = useState<Surcharge[]>(
+        Object.values(SURCHARGE_OPTIONS).filter(s => initialParams.surcharges.includes(s.key))
+    );
+
     const [lang, setLang] = useState<string>(initialParams.lang);
 
     // --- SYNC STATE TO URL ---
@@ -42,6 +70,8 @@ const App: React.FC = () => {
             program: programType,
             currency: currency.code,
             discounts: selectedDiscounts.map((d) => d.key),
+            surcharges: selectedSurcharges.map((s) => s.key),
+            payment: paymentType,
         });
     }, [
         selectedCountries,
@@ -49,6 +79,8 @@ const App: React.FC = () => {
         programType,
         currency,
         selectedDiscounts,
+        selectedSurcharges,
+        paymentType,
     ]);
 
     // --- SYNC LANGUAGE ---
@@ -58,17 +90,25 @@ const App: React.FC = () => {
         }
     }, [lang, i18n]);
 
-    const pricePerUniversity = getPricePerUniversity(
-        selectedCountries,
-        programType
+    function toUniversityCount(n: number): UniversityCount {
+        if (n <= 5) return '5_or_less';
+        if (n <= 8) return '6_9';
+        return '10_or_more';
+    }
+
+    const pricePerUniversity = newGetPricePerUniversity(
+        programType,
+        toUniversityCount(universityCount),
+        selectedCountries.map(c => c.key as Country)
     );
 
     const totalKZT = pricePerUniversity * universityCount;
     const total = totalKZT * currency.rate;
-    const discountPercentage = DISCOUNT_OPTIONS
-        .filter((opt) => selectedDiscounts.includes(opt))
-        .reduce((sum, opt) => sum + opt.value, 0);
-    const discountedTotal = total - (total * discountPercentage) / 100;
+    const discountPercentage = selectedDiscounts
+        .reduce((sum, d) => sum + d.value, 0);
+    const surchargePercentage = selectedSurcharges
+        .reduce((sum, s) => sum + s.value, 0);
+    const discountedAndSurchargedTotal = total - (total * discountPercentage) / 100 + (total * surchargePercentage) / 100;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -105,11 +145,16 @@ const App: React.FC = () => {
                                     <UniversitySlider
                                         universityCount={universityCount}
                                         setUniversityCount={setUniversityCount}
-                                        setSelectedDiscounts={setSelectedDiscounts}
                                     />
                                     <DiscountOptions
                                         selectedDiscounts={selectedDiscounts}
                                         setSelectedDiscounts={setSelectedDiscounts}
+                                    />
+                                    <PaymentTypeSelector
+                                        paymentType={paymentType}
+                                        setPaymentType={setPaymentType}
+                                        setSelectedDiscounts={setSelectedDiscounts}
+                                        setSelectedSurcharges={setSelectedSurcharges}
                                     />
                                 </div>
                             </div>
@@ -121,11 +166,13 @@ const App: React.FC = () => {
                                 <PriceBreakdown
                                     selectedCountries={selectedCountries}
                                     programType={programType}
+                                    paymentType={paymentType}
                                     universityCount={universityCount}
                                     pricePerUniversity={pricePerUniversity}
                                     totalKZT={totalKZT}
                                     discountPercentage={discountPercentage}
-                                    discountedTotal={discountedTotal}
+                                    surchargePercentage={surchargePercentage}
+                                    discountedAndSurchargedTotal={discountedAndSurchargedTotal}
                                     currency={currency}
                                 />
                             </div>

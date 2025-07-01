@@ -1,6 +1,6 @@
-import { Country, Currency, Discount } from "../types";
+import {CountryData, Currency, Discount, DiscountKey, PricingTable, Surcharge, SurchargeKey} from "../types";
 
-export const COUNTRIES: Country[] = [
+export const COUNTRIES: CountryData[] = [
     { key: "cn", name: "china", label: "China", flag: "🇨🇳", tier: 'standard' },
     { key: "hk", name: "hong_kong", label: "Hong Kong", flag: "🇭🇰", tier: 'standard' },
     { key: "it", name: "italy", label: "Italy", flag: "🇮🇹", tier: 'standard' },
@@ -26,17 +26,350 @@ export const standardCountries = COUNTRIES.filter(c => c.tier === "standard")
 
 export const CURRENCIES: Currency[] = [
     { code: "KZT", symbol: "₸", rate: 1, flag: "🇰🇿" },
+    { code: "RUB", symbol: "₽", rate: 0.1500, flag: "🇷🇺"},
     { code: "USD", symbol: "$", rate: 0.0019, flag: "🇺🇸" },
-    { code: "EUR", symbol: "€", rate: 0.0017, flag: "🇪🇺" },
-    { code: "GBP", symbol: "£", rate: 0.0015, flag: "🇬🇧" }
+    { code: "EUR", symbol: "€", rate: 0.0017, flag: "🇪🇺" }
 ];
 
-export const DISCOUNT_OPTIONS: Discount[] = [
-    { key: "more_than_5_university", label: "More than 5 university", value: 15, selectable: false },
-    { key: "fast_payment", label: "Pay in less than 5 days", value: 2, selectable: true },
-    { key: "testimony", label: "Allow to share about there case", value: 3, selectable: true  },
-    { key: "duo_booking", label: "Booking as a duo (with a friend)", value: 10, selectable: true },
-];
+export const DISCOUNT_OPTIONS: Record<DiscountKey, Discount> = {
+    upfront_payment: {
+        key: "upfront_payment",
+        label: "Pay in one payment",
+        value: 2,
+        selectable: false,
+    },
+    fast_payment: {
+        key: "fast_payment",
+        label: "Pay in less than 7 days",
+        value: 5,
+        selectable: true,
+    },
+    testimony: {
+        key: "testimony",
+        label: "Allow to share about their case",
+        value: 3,
+        selectable: true,
+    },
+};
+
+export const SURCHARGE_OPTIONS: Record<SurchargeKey, Surcharge> =  {
+    bank_installment: { key: "bank_installment", label: "Bank fees for installment", value: 15 },
+};
+
+export const pricingTable: PricingTable = {
+    foundation: {
+        '5_or_less': {
+            '1': {
+                'cn': 220_000,
+                'hk': 220_000,
+                'it': 220_000,
+                'gb': 270_000,
+                'us': 270_000,
+                'kr': 220_000,
+                'fr': 240_000,
+                'hu': 220_000,
+                'pl': 220_000,
+                'de': 240_000,
+                'at': 240_000,
+                'nl': 240_000,
+                'es': 220_000,
+                'be': 240_000,
+                'ca': 270_000,
+                'ae': 270_000,
+                'qa': 270_000,
+                'my': 220_000,
+            },
+            '2': {
+                'standard': 240_000,
+                'premium': 280_000,
+            },
+            '3': {
+                'standard': 240_000,
+                'premium': 280_000,
+            },
+            '4_or_more': {
+                'standard': 245_000,
+                'premium': 285_000,
+            },
+        },
+        '6_9': {
+            '1': {
+                'cn': 210_000,
+                'hk': 210_000,
+                'it': 210_000,
+                'gb': 220_000,
+                'us': 220_000,
+                'kr': 210_000,
+                'fr': 215_000,
+                'hu': 210_000,
+                'pl': 210_000,
+                'de': 215_000,
+                'at': 215_000,
+                'nl': 215_000,
+                'es': 210_000,
+                'be': 215_000,
+                'ca': 220_000,
+                'ae': 220_000,
+                'qa': 220_000,
+                'my': 210_000,
+            },
+            '2': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+            '3': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+            '4_or_more': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+        },
+        '10_or_more': {
+            '1': {
+                'cn': 190_000,
+                'hk': 190_000,
+                'it': 190_000,
+                'gb': 190_000,
+                'us': 190_000,
+                'kr': 190_000,
+                'fr': 190_000,
+                'hu': 190_000,
+                'pl': 190_000,
+                'de': 190_000,
+                'at': 190_000,
+                'nl': 190_000,
+                'es': 190_000,
+                'be': 190_000,
+                'ca': 190_000,
+                'ae': 190_000,
+                'qa': 190_000,
+                'my': 190_000,
+            },
+            '2': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+            '3': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+            '4_or_more': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+        },
+    },
+    bachelor: {
+        '5_or_less': {
+            '1': {
+                'cn': 220_000,
+                'hk': 220_000,
+                'it': 220_000,
+                'gb': 270_000,
+                'us': 270_000,
+                'kr': 220_000,
+                'fr': 240_000,
+                'hu': 220_000,
+                'pl': 220_000,
+                'de': 240_000,
+                'at': 240_000,
+                'nl': 240_000,
+                'es': 220_000,
+                'be': 240_000,
+                'ca': 270_000,
+                'ae': 270_000,
+                'qa': 270_000,
+                'my': 220_000,
+            },
+            '2': {
+                'standard': 240_000,
+                'premium': 280_000,
+            },
+            '3': {
+                'standard': 240_000,
+                'premium': 280_000,
+            },
+            '4_or_more': {
+                'standard': 245_000,
+                'premium': 285_000,
+            },
+        },
+        '6_9': {
+            '1': {
+                'cn': 210_000,
+                'hk': 210_000,
+                'it': 210_000,
+                'gb': 220_000,
+                'us': 220_000,
+                'kr': 210_000,
+                'fr': 215_000,
+                'hu': 210_000,
+                'pl': 210_000,
+                'de': 215_000,
+                'at': 215_000,
+                'nl': 215_000,
+                'es': 210_000,
+                'be': 215_000,
+                'ca': 220_000,
+                'ae': 220_000,
+                'qa': 220_000,
+                'my': 210_000,
+            },
+            '2': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+            '3': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+            '4_or_more': {
+                'standard': 225_000,
+                'premium': 250_000,
+            },
+        },
+        '10_or_more': {
+            '1': {
+                'cn': 190_000,
+                'hk': 190_000,
+                'it': 190_000,
+                'gb': 190_000,
+                'us': 190_000,
+                'kr': 190_000,
+                'fr': 190_000,
+                'hu': 190_000,
+                'pl': 190_000,
+                'de': 190_000,
+                'at': 190_000,
+                'nl': 190_000,
+                'es': 190_000,
+                'be': 190_000,
+                'ca': 190_000,
+                'ae': 190_000,
+                'qa': 190_000,
+                'my': 190_000,
+            },
+            '2': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+            '3': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+            '4_or_more': {
+                'standard': 210_000,
+                'premium': 220_000,
+            },
+        },
+    },
+    master: {
+        '5_or_less': {
+            '1': {
+                'cn': 230_000,
+                'hk': 230_000,
+                'it': 230_000,
+                'gb': 260_000,
+                'us': 260_000,
+                'kr': 230_000,
+                'fr': 240_000,
+                'hu': 220_000,
+                'pl': 220_000,
+                'de': 240_000,
+                'at': 240_000,
+                'nl': 240_000,
+                'es': 230_000,
+                'be': 240_000,
+                'ca': 260_000,
+                'ae': 260_000,
+                'qa': 260_000,
+                'my': 230_000,
+            },
+            '2': {
+                'standard': 245_000,
+                'premium': 275_000,
+            },
+            '3': {
+                'standard': 245_000,
+                'premium': 280_000,
+            },
+            '4_or_more': {
+                'standard': 245_000,
+                'premium': 280_000,
+            },
+        },
+        '6_9': {
+            '1': {
+                'cn': 210_000,
+                'hk': 210_000,
+                'it': 210_000,
+                'gb': 240_000,
+                'us': 240_000,
+                'kr': 210_000,
+                'fr': 215_000,
+                'hu': 210_000,
+                'pl': 210_000,
+                'de': 215_000,
+                'at': 215_000,
+                'nl': 215_000,
+                'es': 210_000,
+                'be': 215_000,
+                'ca': 240_000,
+                'ae': 240_000,
+                'qa': 240_000,
+                'my': 210_000,
+            },
+            '2': {
+                'standard': 235_000,
+                'premium': 240_000,
+            },
+            '3': {
+                'standard': 235_000,
+                'premium': 250_000,
+            },
+            '4_or_more': {
+                'standard': 235_000,
+                'premium': 250_000,
+            },
+        },
+        '10_or_more': {
+            '1': {
+                'cn': 190_000,
+                'hk': 190_000,
+                'it': 190_000,
+                'gb': 225_000,
+                'us': 225_000,
+                'kr': 190_000,
+                'fr': 225_000,
+                'hu': 190_000,
+                'pl': 190_000,
+                'de': 225_000,
+                'at': 225_000,
+                'nl': 225_000,
+                'es': 190_000,
+                'be': 225_000,
+                'ca': 225_000,
+                'ae': 225_000,
+                'qa': 225_000,
+                'my': 190_000,
+            },
+            '2': {
+                'standard': 230_000,
+                'premium': 235_000,
+            },
+            '3': {
+                'standard': 230_000,
+                'premium': 235_000,
+            },
+            '4_or_more': {
+                'standard': 230_000,
+                'premium': 235_000,
+            },
+        },
+    },
+}
 
 export const PER_PACKAGE_PRICES = {
     standard: [240_000, 250_000, 250_000] as const, // index 0⇒2 countries, 1⇒3, 2⇒4

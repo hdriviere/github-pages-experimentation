@@ -84,7 +84,7 @@ export const DiscountOptions: React.FC<Props> = ({
                 >
                     <div className="flex items-center gap-4">
                         <div className={`p-2 rounded-lg ${
-                            isSelected ? "bg-green-500 text-white" : "bg-gray-200 text-gray-500"
+                            isSelected ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600"
                         }`}>
                             {getIcon(discount.key)}
                         </div>
@@ -119,7 +119,7 @@ export const DiscountOptions: React.FC<Props> = ({
             </div>
             
             <div className="space-y-3">
-                {DISCOUNT_OPTIONS.map((discount) => renderDiscountOption(discount))}
+                {Object.values(DISCOUNT_OPTIONS).map(discount => renderDiscountOption(discount))}
             </div>
         </div>
     );
