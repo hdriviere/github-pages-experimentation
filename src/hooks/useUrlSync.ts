@@ -8,7 +8,7 @@ export function getQueryParams() {
         currency: params.get("currency") || "KZT",
         discounts: params.get("discounts")?.split("-").filter(Boolean) || [],
         surcharges: params.get("surcharges")?.split("-").filter(Boolean) || [],
-        payment: params.get("payment") === 'upfront_payment' ? 'upfront_payment' : params.get("payment") === 'company_installment' ? 'company_installment' : params.get("payment") === '12_months_bank_installment' ? '12_months_bank_installment' : '24_months_bank_installment',
+        payment: params.get("payment") === 'company_installment' ? 'company_installment' : params.get("payment") === '12_months_bank_installment' ? '12_months_bank_installment' : params.get("payment") === '24_months_bank_installment' ? '24_months_bank_installment' : 'upfront_payment',
     };
 }
 

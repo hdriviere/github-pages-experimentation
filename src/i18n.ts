@@ -239,7 +239,7 @@ const resources = {
             installment_type: "Installment Type",
             select_desired_installment: "Select your installment plan",
             company: "Company Installment",
-            company_description: "Pay in two equal installments via your company",
+            company_description: "Pay in two equal installments via our company",
             bank_12: "12-Month Bank Installment",
             bank_12_description: "Pay in 12 monthly bank installments",
             bank_24: "24-Month Bank Installment",
@@ -385,7 +385,7 @@ const resources = {
                 "Sélectionnez votre plan de paiement échelonné",
             company: "Paiement par l’entreprise",
             company_description:
-                "Paiement en deux versements égaux via votre entreprise",
+                "Paiement en deux versements égaux via notre entreprise",
             bank_12: "Échelonnement bancaire 12 mois",
             bank_12_description: "Paiement en 12 mensualités bancaires",
             bank_24: "Échelonnement bancaire 24 mois",
