@@ -65,6 +65,7 @@ const App: React.FC = () => {
     // --- SYNC STATE TO URL ---
     useEffect(() => {
         setQueryParams({
+            lang: lang,
             countries: selectedCountries.map((c) => c.key),
             universities: universityCount,
             program: programType,

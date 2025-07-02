@@ -433,10 +433,13 @@ const resources = {
     },
 };
 
+const urlParams = new URLSearchParams(window.location.search)
+const initialLng = urlParams.get('lang') || 'ru'
+
 i18n.use(initReactI18next).init({
     resources,
-    lng: "en",
-    fallbackLng: "en",
+    lng: initialLng,
+    fallbackLng: "ru",
     interpolation: { escapeValue: false },
 });
 
