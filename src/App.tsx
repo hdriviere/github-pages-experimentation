@@ -75,6 +75,7 @@ const App: React.FC = () => {
             payment: paymentType,
         });
     }, [
+        lang,
         selectedCountries,
         universityCount,
         programType,
