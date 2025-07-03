@@ -181,7 +181,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                                         </span>
                                     </div>
                                     <span className="font-semibold text-green-700">
-                                        -{formatKZT((totalKZT * currency.rate * discountPercentage) / 100)}
+                                        -{formatKZT(totalKZT * discountPercentage / 100)}
                                     </span>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@ export const PriceBreakdown: React.FC<Props> = ({
                                         </span>
                                     </div>
                                     <span className="font-semibold text-amber-700">
-                                        +{formatKZT((totalKZT * currency.rate * surchargePercentage) / 100)}
+                                        +{formatKZT(totalKZT * surchargePercentage / 100)}
                                     </span>
                                 </div>
                             </div>
