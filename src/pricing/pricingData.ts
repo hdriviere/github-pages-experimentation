@@ -36,7 +36,7 @@ export const DISCOUNT_OPTIONS: Record<DiscountKey, Discount> = {
         key: "upfront_payment",
         label: "Pay in one payment",
         value: 2,
-        selectable: false,
+        selectable: true,
     },
     fast_payment: {
         key: "fast_payment",

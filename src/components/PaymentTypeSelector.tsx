@@ -24,20 +24,20 @@ export function PaymentTypeSelector({
     // pick a default installment if user just flipped to “installment”
     const defaultInstallment: InstallmentType = "company_installment";
 
-    function addDiscount(
-        setSelectedDiscounts: React.Dispatch<React.SetStateAction<Discount[]>>,
-        discount: Discount
-    ) {
-        setSelectedDiscounts(prev => {
-            const isActive = prev.some(d => d.key === discount.key)
-
-            if (!isActive) {
-                return [...prev, discount]
-            } else {
-                return prev
-            }
-        })
-    }
+    // function addDiscount(
+    //     setSelectedDiscounts: React.Dispatch<React.SetStateAction<Discount[]>>,
+    //     discount: Discount
+    // ) {
+    //     setSelectedDiscounts(prev => {
+    //         const isActive = prev.some(d => d.key === discount.key)
+    //
+    //         if (!isActive) {
+    //             return [...prev, discount]
+    //         } else {
+    //             return prev
+    //         }
+    //     })
+    // }
 
     function deleteDiscount(
         setSelectedDiscounts: React.Dispatch<React.SetStateAction<Discount[]>>,
@@ -73,7 +73,7 @@ export function PaymentTypeSelector({
         if (isInstallment) {
             setPaymentType("upfront_payment");
             deleteSurcharge(setSelectedSurcharges, SURCHARGE_OPTIONS["bank_installment"])
-            addDiscount(setSelectedDiscounts, DISCOUNT_OPTIONS["upfront_payment"])
+            //addDiscount(setSelectedDiscounts, DISCOUNT_OPTIONS["upfront_payment"])
         }
     }
 

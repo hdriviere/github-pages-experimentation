@@ -47,12 +47,12 @@ const App: React.FC = () => {
             initialParams.discounts.includes(d.key)
         );
         // 2) if we're in upfront mode, ensure upfront_payment is in there
-        if (paymentType === "upfront_payment") {
-            const onePay = DISCOUNT_OPTIONS.upfront_payment;
-            if (!init.some(d => d.key === onePay.key)) {
-                init.push(onePay);
-            }
-        }
+        // if (paymentType === "upfront_payment") {
+        //     const onePay = DISCOUNT_OPTIONS.upfront_payment;
+        //     if (!init.some(d => d.key === onePay.key)) {
+        //         init.push(onePay);
+        //     }
+        // }
         return init;
     });
 
